@@ -22,11 +22,16 @@ browserSync.watch(watchFiles, debounce(onFilesChanged, 300));
 browserSync.init({
 	server: {
 		baseDir: baseDir,
-		middleware: modRewrite([
+		middleware: [modRewrite([
 			"^/boschdoc/css/(.*).css$ /css/$1.css [L]",
 			"^/boschdoc/js/(.*).js$ /js/$1.js [L]",
-			"^/boschdoc/test-data/(.*).json$ /test-data/$1.json [L]",
+			"^/boschdoc/data/(.*).json$ /data/$1.json [L]",
 			"^/boschdoc/?.*$ /index.html [L]"
-		])
+		]), function(req, res, next) {
+			if(req.originalUrl.match(/\.json$/)) {
+				res.setHeader('Content-type', 'application/json; charset=utf-8');
+			}
+			next();
+		}]
 	}
 });

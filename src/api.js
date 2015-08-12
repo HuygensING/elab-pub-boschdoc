@@ -10,8 +10,7 @@ export default {
 	getDocument(id) {
 		this.performXhr({
 			method: 'GET',
-			uri: "http://localhost/uglyproxy/?id=" + id
-			/* uri: '/test-data/' + id + '.json' */
+			uri: '/data/' + id + '.json'
 		}, serverActions.receiveDocument);
 	}
 };

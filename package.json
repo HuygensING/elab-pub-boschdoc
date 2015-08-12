@@ -31,6 +31,6 @@
     "immutable": "~3.7.4",
     "react": "~0.13.3",
     "xhr": "~2.0.3",
-    "hire-faceted-search": "~1.0.0"
+    "hire-faceted-search": "~1.1.0"
   }
 }

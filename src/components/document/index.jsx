@@ -40,8 +40,8 @@ class DocumentController extends React.Component {
 		if(this.state.id === null) {
 			return (<div />)
 		} else {
-			let facs = this.state.facsimiles.length > 0 ? 
-				(<iframe className="facsimile" src={this.state.facsimiles[0].zoom}></iframe>) : 
+			let facs = this.state.facsimiles.length > 0 ?
+				(<iframe className="facsimile" src={this.state.facsimiles[0].zoom}></iframe>) :
 				"no facsimile";
 
 			let keys = this.state.i18n.keys;

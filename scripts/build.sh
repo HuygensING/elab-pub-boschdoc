@@ -3,7 +3,6 @@
 
 # Build React JS
 node_modules/.bin/browserify src/index.jsx \
-	--detect-globals false \
 	--extension=.jsx \
 	--external classnames \
 	--external immutable \

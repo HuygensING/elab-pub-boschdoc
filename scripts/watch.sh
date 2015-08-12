@@ -8,7 +8,6 @@
 	src/stylus/main.styl &
 
 node_modules/.bin/watchify src/index.jsx \
-	--detect-globals false \
 	--extension=.jsx \
 	--external react \
 	--outfile build/development/js/react-src.js \

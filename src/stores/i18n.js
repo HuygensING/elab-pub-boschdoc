@@ -26,10 +26,6 @@ const KEYS = {
 
 class I18nStore extends BaseStore {
 
-	constructor() {
-		super();
-	}
-
 	getState() {
 		return {
 			language: this.getLanguage(),

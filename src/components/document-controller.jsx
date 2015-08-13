@@ -45,6 +45,16 @@ class DocumentController extends React.Component {
 		appRouter.navigateToResult({id: id})
 	}
 
+	renderTextLayer(key) {
+		let keys = this.state.i18n.keys;
+		return this.state[key] ?
+			<TextLayer 
+				data={this.state[key]}
+				label={keys[key]} 
+				onNavigation={this.navigateToEntry.bind(this)} 
+				relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
+			null;
+	}
 
 	render() {
 		if(this.state.id === null) {
@@ -52,30 +62,7 @@ class DocumentController extends React.Component {
 		} else {
 			let facs = this.state.facsimiles.length > 0 ?
 				(<iframe className="facsimile" key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
-				"no facsimile";
-
-			let keys = this.state.i18n.keys;
-			let transcription = this.state.transcription ?
-				<TextLayer 
-					data={this.state.transcription}
-					label={keys.transcription} 
-					onNavigation={this.navigateToEntry.bind(this)} 
-					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
-				null;
-			let remarks = this.state.remarks ?
-				<TextLayer  
-					data={this.state.remarks} 
-					label={keys.remarks} 
-					onNavigation={this.navigateToEntry.bind(this)}
-					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
-				null;
-			let translation = this.state.translation ?
-				<TextLayer  
-					data={this.state.translation} 
-					label={keys.translation} 
-					onNavigation={this.navigateToEntry.bind(this)} 
-					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
-				null;
+			"no facsimile";
 
 			return (
 				<div>
@@ -84,9 +71,9 @@ class DocumentController extends React.Component {
 					</div>
 					<div className="right-pane">
 						<h1>{this.state.name}</h1>
-						{transcription}
-						{remarks}
-						{translation}
+						{this.renderTextLayer("transcription")}
+						{this.renderTextLayer("remarks")}
+						{this.renderTextLayer("translation")}
 					</div>
 				</div>
 			)

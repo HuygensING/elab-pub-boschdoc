@@ -13,4 +13,4 @@ node_modules/.bin/watchify src/index.jsx \
 	--outfile build/development/js/react-src.js \
 	--standalone BoschDoc \
 	--transform [ babelify --plugins object-assign ] \
-	--verbose &
+	--verbose

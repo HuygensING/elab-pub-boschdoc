@@ -14,21 +14,19 @@ let AppRouter = Router.extend({
 		'': 'search',
 		':lang': 'search',
 		':lang/search': 'search',
-		':lang/details/:id': 'details'
+		':lang/entry/:id': 'entry'
 	},
 
 	navigateToResult: function(obj) {
-		this.navigate(i18nStore.getLanguage() + "/details/" + obj.id);
+		this.navigate(i18nStore.getLanguage() + "/entry/" + obj.id);
 	},
 
 	search: function(lang) {
-		console.log("ROUTE? search");
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
 		React.render(<App><FacetedSearch onChange={this.navigateToResult.bind(this)} /></App>, document.body);
 	},
 
-	details: function(lang, id) {
-		console.log("ROUTE? details");
+	entry: function(lang, id) {
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
 		React.render(<App><Document id={id} /></App>, document.body);
 	}

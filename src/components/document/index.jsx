@@ -45,6 +45,16 @@ class DocumentController extends React.Component {
 				"no facsimile";
 
 			let keys = this.state.i18n.keys;
+			let transcription = this.state.transcription ?
+				<Transcription data={this.state.transcription} label={keys.transcription}  /> :
+				null;
+			let remarks = this.state.remarks ?
+				<Transcription data={this.state.remarks} label={keys.remarks}  /> :
+				null;
+			let translation = this.state.translation ?
+				<Transcription data={this.state.translation} label={keys.translation}  /> :
+				null;
+
 			return (
 				<div>
 					<div className="left-pane">
@@ -52,9 +62,9 @@ class DocumentController extends React.Component {
 					</div>
 					<div className="right-pane">
 						<h1>{this.state.name}</h1>
-						<Transcription data={this.state.transcription} label={keys.transcription}  />
-						<Transcription data={this.state.remarks} label={keys.remarks}  />
-						<Transcription data={this.state.translation} label={keys.translation} />
+						{transcription}
+						{remarks}
+						{translation}
 					</div>
 				</div>
 			)

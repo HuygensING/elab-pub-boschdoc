@@ -1,5 +1,5 @@
 import React from "react";
-import Transcription from "./transcription";
+import TextLayer from "./text-layer";
 import actions from "../../actions/document";
 import documentStore from "../../stores/document";
 import i18nStore from "../../stores/i18n";
@@ -49,13 +49,13 @@ class DocumentController extends React.Component {
 
 			let keys = this.state.i18n.keys;
 			let transcription = this.state.transcription ?
-				<Transcription data={this.state.transcription} label={keys.transcription}  /> :
+				<TextLayer data={this.state.transcription} label={keys.transcription}  /> :
 				null;
 			let remarks = this.state.remarks ?
-				<Transcription data={this.state.remarks} label={keys.remarks}  /> :
+				<TextLayer data={this.state.remarks} label={keys.remarks}  /> :
 				null;
 			let translation = this.state.translation ?
-				<Transcription data={this.state.translation} label={keys.translation}  /> :
+				<TextLayer data={this.state.translation} label={keys.translation}  /> :
 				null;
 
 			return (

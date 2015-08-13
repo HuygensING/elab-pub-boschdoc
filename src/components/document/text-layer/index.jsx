@@ -2,14 +2,14 @@ import React from "react";
 import parseHtml from "./html-parser";
 import Annotations from "./annotations";
 
-class Transcription extends React.Component {
+class TextLayer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {rootNode: parseHtml(this.props.data.text), highlightedAnnotation: null};
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log("Transcription RECEIVING NEW PROPS");
+		console.log("TextLayer RECEIVING NEW PROPS");
 		this.setState({rootNode: parseHtml(newProps.data.text), highlightedAnnotation: null});
 	}
 
@@ -75,10 +75,10 @@ class Transcription extends React.Component {
 	}
 }
 
-Transcription.propTypes = {
+TextLayer.propTypes = {
 	data: React.PropTypes.object,
 	label: React.PropTypes.string
 };
 
 
-export default Transcription;
+export default TextLayer;

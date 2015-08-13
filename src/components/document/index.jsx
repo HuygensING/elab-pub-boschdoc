@@ -1,8 +1,9 @@
 import React from "react";
-import TextLayer from "./text-layer";
+import TextLayer from "hire-textlayer";
 import actions from "../../actions/document";
 import documentStore from "../../stores/document";
 import i18nStore from "../../stores/i18n";
+import appRouter from "../../router";
 
 class DocumentController extends React.Component {
 
@@ -38,6 +39,11 @@ class DocumentController extends React.Component {
 			translation: state.paralleltexts[keys.translation]
 		});
 	}
+	
+	navigateToEntry(id) {
+		appRouter.navigateToResult({id: id})
+	}
+
 
 	render() {
 		if(this.state.id === null) {
@@ -49,13 +55,13 @@ class DocumentController extends React.Component {
 
 			let keys = this.state.i18n.keys;
 			let transcription = this.state.transcription ?
-				<TextLayer data={this.state.transcription} label={keys.transcription}  /> :
+				<TextLayer data={this.state.transcription} label={keys.transcription}  onNavigation={this.navigateToEntry.bind(this)} /> :
 				null;
 			let remarks = this.state.remarks ?
-				<TextLayer data={this.state.remarks} label={keys.remarks}  /> :
+				<TextLayer data={this.state.remarks} label={keys.remarks} onNavigation={this.navigateToEntry.bind(this)} /> :
 				null;
 			let translation = this.state.translation ?
-				<TextLayer data={this.state.translation} label={keys.translation}  /> :
+				<TextLayer data={this.state.translation} label={keys.translation} onNavigation={this.navigateToEntry.bind(this)} /> :
 				null;
 
 			return (

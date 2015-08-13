@@ -1,9 +1,9 @@
 import React from "react";
 import TextLayer from "hire-textlayer";
-import actions from "../../actions/document";
-import documentStore from "../../stores/document";
-import i18nStore from "../../stores/i18n";
-import appRouter from "../../router";
+import actions from "../actions/document";
+import documentStore from "../stores/document";
+import i18nStore from "../stores/i18n";
+import appRouter from "../router";
 
 class DocumentController extends React.Component {
 

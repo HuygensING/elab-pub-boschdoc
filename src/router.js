@@ -2,7 +2,7 @@ import Router from "ampersand-router";
 import React from "react";
 
 import FacetedSearch from "hire-faceted-search";
-import Document from "./components/document"
+import Document from "./components/document-controller";
 
 import actions from "./actions/view";
 import App from "./app";

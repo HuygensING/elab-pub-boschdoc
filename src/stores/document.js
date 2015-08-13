@@ -15,7 +15,6 @@ class DocumentStore extends BaseStore {
 	}
 
 	receive(data)  {
-		console.log(data);
 		this.data = data;
 	}
 }

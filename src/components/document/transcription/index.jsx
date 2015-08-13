@@ -9,9 +9,8 @@ class Transcription extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log("RECEIVE NEW PROPS");
+		console.log("Transcription RECEIVING NEW PROPS");
 		this.setState({rootNode: parseHtml(newProps.data.text), highlightedAnnotation: null});
-
 	}
 
 	unHighlightAnnotation() {

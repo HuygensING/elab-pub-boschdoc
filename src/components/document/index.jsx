@@ -17,11 +17,14 @@ class DocumentController extends React.Component {
 		actions.getDocument(this.props.id);
 	}
 
+	componentWillReceiveProps(newProps) {
+		actions.getDocument(newProps.id);
+	}
+
 	componentWillUnmount() {
 		documentStore.stopListening(this.onStoreChange.bind(this));
 		i18nStore.stopListening(this.onStoreChange.bind(this));
 	}
-
 
 	onStoreChange() {
 		let state = documentStore.getState(), keys = i18nStore.getState().keys;
@@ -41,7 +44,7 @@ class DocumentController extends React.Component {
 			return (<div />)
 		} else {
 			let facs = this.state.facsimiles.length > 0 ?
-				(<iframe className="facsimile" src={this.state.facsimiles[0].zoom}></iframe>) :
+				(<iframe className="facsimile" key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
 				"no facsimile";
 
 			let keys = this.state.i18n.keys;

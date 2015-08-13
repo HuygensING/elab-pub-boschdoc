@@ -1,12 +1,23 @@
 import React from "react";
+import appRouter from "../../../router";
+
 
 
 class Annotations extends React.Component {
 
+	nanavigateToResult(id) {
+		appRouter.navigateToResult({id: id})
+	}
+
 	renderAnnotation(annotation, i) {
-		return (<div className={this.props.highlighted == annotation.n ? "highlighted" : null} id={annotation.n} key={i}>
-			<em>{annotation.type.name}</em>, <span dangerouslySetInnerHTML={{__html: annotation.text}} />
-		</div>);
+		return annotation.type.name === "elab4:entrylink" ?
+			(<div className={this.props.highlighted == annotation.n ? "highlighted" : null} id={annotation.n} key={i}>
+				<a onClick={this.nanavigateToResult.bind(this, annotation.text)}>Gerelateerd aan</a>
+			</div>)
+			:
+			(<div className={this.props.highlighted == annotation.n ? "highlighted" : null} id={annotation.n} key={i}>
+				<em>{annotation.type.name}</em>, <span dangerouslySetInnerHTML={{__html: annotation.text}} />
+			</div>);
 	}
 
 	render() {

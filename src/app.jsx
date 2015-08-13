@@ -5,7 +5,6 @@ class AppController extends React.Component {
 
 
 	navigateLanguage(ev) {
-		console.log(location);
 		let [,,lang, controller, id] = location.pathname.split("/");
 		let path = ev.target.getAttribute("data-lang");
 		if(controller) { path += "/" + controller; }

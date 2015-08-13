@@ -36,7 +36,8 @@ class DocumentController extends React.Component {
 			facsimiles: state.facsimiles,
 			transcription: state.paralleltexts[keys.transcription],
 			remarks: state.paralleltexts[keys.remarks],
-			translation: state.paralleltexts[keys.translation]
+			translation: state.paralleltexts[keys.translation],
+			relatedAnnotationLabel: keys.relatedAnnotationLabel
 		});
 	}
 	
@@ -55,13 +56,25 @@ class DocumentController extends React.Component {
 
 			let keys = this.state.i18n.keys;
 			let transcription = this.state.transcription ?
-				<TextLayer data={this.state.transcription} label={keys.transcription}  onNavigation={this.navigateToEntry.bind(this)} /> :
+				<TextLayer 
+					data={this.state.transcription}
+					label={keys.transcription} 
+					onNavigation={this.navigateToEntry.bind(this)} 
+					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
 				null;
 			let remarks = this.state.remarks ?
-				<TextLayer data={this.state.remarks} label={keys.remarks} onNavigation={this.navigateToEntry.bind(this)} /> :
+				<TextLayer  
+					data={this.state.remarks} 
+					label={keys.remarks} 
+					onNavigation={this.navigateToEntry.bind(this)}
+					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
 				null;
 			let translation = this.state.translation ?
-				<TextLayer data={this.state.translation} label={keys.translation} onNavigation={this.navigateToEntry.bind(this)} /> :
+				<TextLayer  
+					data={this.state.translation} 
+					label={keys.translation} 
+					onNavigation={this.navigateToEntry.bind(this)} 
+					relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
 				null;
 
 			return (

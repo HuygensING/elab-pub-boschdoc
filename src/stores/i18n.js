@@ -7,17 +7,20 @@ const KEYS = {
 	nl: {
 		transcription: "Transcriptie",
 		remarks: "Opmerkingen en verwijzingen",
-		translation: "Vertaling"
+		translation: "Vertaling",
+		relatedAnnotationLabel: "Gerelateerd aan"
 	},
 	en: {
 		transcription: "Transcription",
 		remarks: "Comments and References",
-		translation: "Translation"
+		translation: "Translation",
+		relatedAnnotationLabel: "Related to"
 	},
 	es: {
 		transcription: "Transcripción",
 		remarks: "Comentarios y referencias",
-		translation: "Traducción"
+		translation: "Traducción",
+		relatedAnnotationLabel: "[[Relacionado a]]"
 	}
 };
 

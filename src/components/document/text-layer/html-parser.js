@@ -1,9 +1,8 @@
 import htmlparser2 from "htmlparser2";
 
-
 let myParser = function(html) {
 	let activeAnnotations = [], rootNode = {
-		tageName: "root",
+		tagName: "root",
 		children: [],
 		attributes: {},
 		parent: null
@@ -13,7 +12,7 @@ let myParser = function(html) {
 	let parser = new htmlparser2.Parser({
 		ontext: function(text) {
 			currentNode.children.push({
-				tageName: null,
+				tagName: null,
 				textContent: text,
 				activeAnnotations: activeAnnotations.slice(),
 				parent: currentNode
@@ -52,7 +51,6 @@ let myParser = function(html) {
 
 	parser.write(html);
 	parser.end();
-	console.log("---PARSED HTML---", rootNode);
 	return rootNode;
 }
 

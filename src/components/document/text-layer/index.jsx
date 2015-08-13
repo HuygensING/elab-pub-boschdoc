@@ -9,7 +9,6 @@ class TextLayer extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log("TextLayer RECEIVING NEW PROPS");
 		this.setState({rootNode: parseHtml(newProps.data.text), highlightedAnnotation: null});
 	}
 

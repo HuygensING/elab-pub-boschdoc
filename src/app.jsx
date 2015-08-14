@@ -36,6 +36,10 @@ class AppController extends React.Component {
 		appRouter.navigate("/" + ev.target.getAttribute("data-lang") + "/search");
 	}
 
+	navigateSample(ev) {
+		appRouter.navigateToResult({id: "21741"});
+	}
+
 	render() {
 		return (
 			<div className="container">
@@ -54,7 +58,7 @@ class AppController extends React.Component {
 						</a>
 					</nav>
 				</header>
-
+				<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>
 				{React.Children.map(this.props.children, function(child) { return child; }) }
 			</div>
 		);

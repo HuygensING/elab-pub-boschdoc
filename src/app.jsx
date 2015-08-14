@@ -28,11 +28,12 @@ class AppController extends React.Component {
 	}
 
 	navigateLanguage(ev) {
-		let [,,lang, controller, id] = location.pathname.split("/");
+/*		let [,,lang, controller, id] = location.pathname.split("/");
 		let path = "/" + ev.target.getAttribute("data-lang");
 		if(controller) { path += "/" + controller; }
 		if(id) { path += "/" + id; }
-		appRouter.navigate(path);
+		*/
+		appRouter.navigate("/" + ev.target.getAttribute("data-lang") + "/search");
 	}
 
 	render() {

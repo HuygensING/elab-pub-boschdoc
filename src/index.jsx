@@ -4,7 +4,7 @@ const ROOT = "/";
 
 console.log("calling history start");
 
-appRouter.history.myStart({
+appRouter.myStart({
 	root: ROOT
 });
 

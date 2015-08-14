@@ -1,5 +1,5 @@
 import appRouter from "./router";
-const ROOT = "/boschdoc"; /* TODO: move to config */
+const ROOT = "";
 
 appRouter.history.start({
 	root: ROOT

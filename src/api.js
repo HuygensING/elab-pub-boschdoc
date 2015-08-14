@@ -2,7 +2,7 @@ import xhr from "xhr";
 import dispatcher from "./dispatcher";
 import serverActions from "./actions/server";
 
-const ROOT = "/boschdoc"; /* TODO: move to config */
+const ROOT = ""; /* TODO: move to config */
 
 export default {
 	performXhr(opts, callback) {

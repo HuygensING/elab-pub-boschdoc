@@ -1,7 +1,6 @@
 import appRouter from "./router";
-const ROOT = "";
+const ROOT = "/";
 
-console.log("INITIALIZING ROUTER");
 appRouter.history.start({
 	root: ROOT
 });

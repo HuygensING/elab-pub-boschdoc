@@ -28,16 +28,16 @@ class AppController extends React.Component {
 	}
 
 	navigateLanguage(ev) {
-/*		let [,,lang, controller, id] = location.pathname.split("/");
-		let path = "/" + ev.target.getAttribute("data-lang");
-		if(controller) { path += "/" + controller; }
-		if(id) { path += "/" + id; }
-		*/
-		appRouter.navigate("/" + ev.target.getAttribute("data-lang") + "/search");
+		if( appRouter.history.fragment === "") {
+			appRouter.navigate(ev.target.getAttribute("data-lang"));
+		} else {
+			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute('data-lang'));
+			appRouter.navigate(path);
+		}
 	}
 
 	navigateSample(ev) {
-		appRouter.navigateToResult({id: "21741"});
+		appRouter.navigateToResult({id: "LINKTEST"});
 	}
 
 	render() {

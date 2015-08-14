@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ./node_modules/.bin/stylus \
 	--use nib \
@@ -7,8 +7,14 @@
 	src/stylus/main.styl 
 
 
+
+INDEX_FILE=deploy.jsx
+if [ $LOCAL_ENV == "dev" ]; then
+	INDEX_FILE=index.jsx
+fi
+
 # Build React JS
-node_modules/.bin/browserify src/index.jsx \
+node_modules/.bin/browserify src/$INDEX_FILE \
 	--extension=.jsx \
 	--external classnames \
 	--external immutable \

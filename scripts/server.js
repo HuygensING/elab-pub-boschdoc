@@ -23,10 +23,10 @@ browserSync.init({
 	server: {
 		baseDir: baseDir,
 		middleware: [modRewrite([
-			"^/boschdoc/css/(.*).css$ /css/$1.css [L]",
-			"^/boschdoc/js/(.*).js$ /js/$1.js [L]",
-			"^/boschdoc/data/(.*).json$ /data/$1.json [L]",
-			"^/boschdoc/?.*$ /index.html [L]"
+			"^/css/(.*).css$ /css/$1.css [L]",
+			"^/js/(.*).js$ /js/$1.js [L]",
+			"^/data/(.*).json$ /data/$1.json [L]",
+			"^/?.*$ /index.html [L]"
 		]), function(req, res, next) {
 			if(req.originalUrl.match(/\.json$/)) {
 				res.setHeader('Content-type', 'application/json; charset=utf-8');

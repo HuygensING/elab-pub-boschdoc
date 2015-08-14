@@ -113,7 +113,7 @@
                     }
                 }
             ],
-            "text": "<b><br><br>Literatuurverwijzingen:<br></b>Dijck, G.C.M. van, <i>Op zoek naar Jheronimus van Aken alias Bosch \u2013 de feiten; familie, vrienden en opdrachtgevers ca. 1400-1635</i>, Zaltbommel 2001, pp. 118-119.<br><br>Vandenbroeck, P., \u2018Rudolf II als verzamelaar van werk van en naar Jheronimus Bosch\u2019, <i>Jaarboek van het Koninklijk Museum voor Schone Kunsten, Antwerpen | Annuaire du Mus\u00e9e Royal des Beaux Arts, Anvers</i> 1981, p. 132.<i><b><br></b></i>"
+            "text": "<b><br><br>Literatuurverwijzingen:<br><span data-id=\"123456789\" data-marker=\"begin\" data-type=\"Correction\"></span> </b>Dijck, G.C.M. van, <i>Op zoek naar Jheronimus van Aken alias Bosch \u2013 de feiten; familie, vrienden en opdrachtgevers ca. 1400-1635</i>, Zaltbommel 2001, pp. 118-119.<sup data-id=\"123456789\" data-marker=\"end\">1</sup><br><br>Vandenbroeck, P., \u2018Rudolf II als verzamelaar van werk van en naar Jheronimus Bosch\u2019, <i>Jaarboek van het Koninklijk Museum voor Schone Kunsten, Antwerpen | Annuaire du Mus\u00e9e Royal des Beaux Arts, Anvers</i> 1981, p. 132.<i><b><br></b></i></span>"
         },
         "Traducci\u00f3n": {
             "annotationData": [],

@@ -10,7 +10,6 @@ export default {
 	},
 
 	getDocument(id) {
-		console.log(this.docroot);
 		this.performXhr({
 			method: 'GET',
 			uri: this.docroot + '/data/' + id + '.json'

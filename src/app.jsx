@@ -21,6 +21,7 @@ class AppController extends React.Component {
 
 	onStoreChange() {
 		this.setState(i18nStore.getState());
+		console.log("CHANGE", this.state);
 	}
 
 	navigateHome(ev) {
@@ -41,6 +42,7 @@ class AppController extends React.Component {
 	}
 
 	render() {
+		console.log("RENDER", this.state);
 		return (
 			<div className="container">
 				<header>

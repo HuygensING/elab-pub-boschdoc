@@ -1,5 +1,5 @@
 import appRouter from "./router";
-const ROOT = "/";
+const ROOT = "/elaborate/publication/boschdoc/development";
 
 
 console.log("calling history start");

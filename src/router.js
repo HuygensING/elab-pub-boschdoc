@@ -22,6 +22,7 @@ let AppRouter = Router.extend({
 	},
 
 	search: function(lang) {
+		console.log("HOME");
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
 		React.render(<App><FacetedSearch onChange={this.navigateToResult.bind(this)} /></App>, document.body);
 	},

@@ -17,6 +17,10 @@ let AppRouter = Router.extend({
 		':lang/entry/:id': 'entry'
 	},
 
+	myStart: function(opts) {
+		this.start(opts);
+	},
+
 	navigateToResult: function(obj) {
 		this.navigate(i18nStore.getLanguage() + "/entry/" + obj.id);
 	},

@@ -1,6 +1,11 @@
 import appRouter from "./router";
 const ROOT = "/";
 
-appRouter.history.start({
+
+console.log("calling history start");
+
+appRouter.history.myStart({
 	root: ROOT
 });
+
+console.log("end");

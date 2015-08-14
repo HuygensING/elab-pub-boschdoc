@@ -1,5 +1,11 @@
 #!/bin/sh
 
+./node_modules/.bin/stylus \
+	--use nib \
+	--compress \
+	--out build/development/css/main.css \
+	src/stylus/main.styl 
+
 
 # Build React JS
 node_modules/.bin/browserify src/index.jsx \

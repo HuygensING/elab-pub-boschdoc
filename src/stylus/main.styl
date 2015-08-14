@@ -1,24 +1,77 @@
-body
-	background-color #EEE
+html, body
+	background-color #fff
+	font-family sans-serif
+	font-size 12px
+	height 100%
+	margin 0
+	padding 0
+	overflow hidden
+
+body > .container
+	height 100%
 
 ul
 	list-style none
 
 a
-	color blue
-	text-decoration underline
 	cursor pointer
 
-.left-pane, .hire-faceted-search > ul
+header
+	height 80px
+
+header > h1
 	float left
-	width 33.33%
+	width 40%
+
+header > nav,
+header > img
+	float right
+
+header > nav
+	line-height 80px
+	margin-right 40px
+
+header > nav > a
+	color black
+
+header > nav > a.selected
+	font-weight bold
 
 
-.right-pane, .hire-faceted-search-results
-	padding-left calc(33.33% + 20px)
+article.entry
+	height calc(100% - 80px)
 
-.facsimile
-	height 400px
+
+article.entry > div
+	height calc(100% - 80px)
+
+.hire-faceted-search
+	height calc(100% - 80px)
+	overflow-y auto
+
+
+.hire-faceted-search > ul
+	float left
+	width 40%
+
+.hire-faceted-search label
+	cursor pointer
+
+article.entry .text
+	padding-left calc(40% + 20px)
+	overflow-y auto
+	height 100%
+
+.hire-faceted-search-results
+	padding-left calc(40% + 20px)
+
+
+article.entry .facsimile
+	position: fixed
+	width: 40%
+
+article.entry .facsimile iframe
+	height 100%
 	width 100%
 	border none
 

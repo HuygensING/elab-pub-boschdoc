@@ -33,6 +33,7 @@ class DocumentController extends React.Component {
 		this.setState({
 			id: state.id,
 			i18n: i18nStore.getState(),
+			name: state.name,
 			facsimiles: state.facsimiles,
 			transcription: state.paralleltexts[keys.transcription],
 			remarks: state.paralleltexts[keys.remarks],
@@ -61,21 +62,21 @@ class DocumentController extends React.Component {
 			return (<div />)
 		} else {
 			let facs = this.state.facsimiles.length > 0 ?
-				(<iframe className="facsimile" key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
+				(<iframe key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
 			"no facsimile";
 
 			return (
-				<div>
-					<div className="left-pane">
+				<article className="entry">
+					<div className="facsimile">
 						{facs}
 					</div>
-					<div className="right-pane">
-						<h1>{this.state.name}</h1>
+					<div className="text">
+						<h2>{this.state.name}</h2>
 						{this.renderTextLayer("transcription")}
 						{this.renderTextLayer("remarks")}
 						{this.renderTextLayer("translation")}
 					</div>
-				</div>
+				</article>
 			)
 		}
 	}

@@ -19,6 +19,7 @@ let AppRouter = Router.extend({
 
 	myStart: function(opts) {
 		this.history.start(opts);
+		console.log(this.history);
 	},
 
 	navigateToResult: function(obj) {

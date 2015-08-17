@@ -7,6 +7,7 @@ import Document from "./components/document-controller";
 import actions from "./actions/view";
 import App from "./app";
 import i18nStore from "./stores/i18n";
+import api from "./api";
 
 let AppRouter = Router.extend({
 
@@ -22,9 +23,10 @@ let AppRouter = Router.extend({
 	},
 
 	search: function(lang) {
-		console.log("HOME");
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
-		React.render(<App><FacetedSearch onChange={this.navigateToResult.bind(this)} /></App>, document.body);
+		api.getConfig((function(config) {
+			React.render(<App><FacetedSearch config={config} onChange={this.navigateToResult.bind(this)} /></App>, document.body);
+		}).bind(this));
 	},
 
 	entry: function(lang, id) {

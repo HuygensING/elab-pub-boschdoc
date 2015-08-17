@@ -42,25 +42,25 @@ class AppController extends React.Component {
 	}
 
 	render() {
-		console.log("RENDER", this.state);
 		return (
 			<div className="container">
 				<header>
 					<h1><a onClick={this.navigateHome.bind(this)}>BoschDoc</a></h1>
 					<img height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
 					<nav>
+						<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>&nbsp;
 						<a className={this.state.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
-							Nederlands
+							Ned
 						</a>&nbsp;
 						<a className={this.state.language === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
-							English
+							Eng
 						</a>&nbsp;
 						<a className={this.state.language === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
-							Español
+							Esp
 						</a>
+
 					</nav>
 				</header>
-				<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>
 				{React.Children.map(this.props.children, function(child) { return child; }) }
 			</div>
 		);

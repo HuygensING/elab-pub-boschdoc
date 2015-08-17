@@ -9,13 +9,14 @@ class DocumentController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id: null, i18n: i18nStore.getState()};
+		this.state = {id: null, i18n: i18nStore.getState(), fixContent: false};
 	}
 
 	componentDidMount() {
 		documentStore.listen(this.onStoreChange.bind(this));
 		i18nStore.listen(this.onStoreChange.bind(this));
 		actions.getDocument(this.props.id);
+		document.addEventListener("scroll", this.handleDocumentScroll.bind(this), false);
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -25,6 +26,7 @@ class DocumentController extends React.Component {
 	componentWillUnmount() {
 		documentStore.stopListening(this.onStoreChange.bind(this));
 		i18nStore.stopListening(this.onStoreChange.bind(this));
+		document.removeEventListener("scroll", this.handleDocumentScroll.bind(this), false);
 	}
 
 	onStoreChange() {
@@ -42,6 +44,16 @@ class DocumentController extends React.Component {
 		});
 	}
 	
+	handleDocumentScroll(ev) {
+		if(window.pageYOffset > document.getElementsByTagName("header")[0].offsetHeight) {
+			this.setState({fixContent: true});
+		} else {
+			this.setState({fixContent: false});
+		}
+		console.log("SCROLL", window.pageYOffset);
+		console.log();
+	}
+
 	navigateToEntry(id) {
 		appRouter.navigateToResult({id: id})
 	}
@@ -66,12 +78,12 @@ class DocumentController extends React.Component {
 			"no facsimile";
 
 			return (
-				<article className="entry">
+				<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
+					<h2>{this.state.name}</h2>
 					<div className="facsimile">
 						{facs}
 					</div>
 					<div className="text">
-						<h2>{this.state.name}</h2>
 						{this.renderTextLayer("transcription")}
 						{this.renderTextLayer("remarks")}
 						{this.renderTextLayer("translation")}

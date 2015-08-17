@@ -14,5 +14,14 @@ export default {
 			method: 'GET',
 			uri: this.docroot + '/data/' + id + '.json'
 		}, serverActions.receiveDocument);
+	},
+
+	getConfig(callback) {
+		this.performXhr({
+			method: 'GET',
+			uri: this.docroot + '/data/config.json'
+		}, function(err, resp, body) {
+			callback(JSON.parse(body))
+		});
 	}
 };

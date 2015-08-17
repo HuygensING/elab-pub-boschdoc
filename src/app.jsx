@@ -1,5 +1,6 @@
 import React from "react";
 import appRouter from "./router";
+import appStore from "./stores/appStore";
 import i18nStore from "./stores/i18n";
 import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
@@ -8,24 +9,34 @@ class AppController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = i18nStore.getState();
+		this.state = {
+			i18n: i18nStore.getState(),
+			app: { controller: this.props.controller || "search", id: this.props.id || null }
+		};
 		this.languageChangeListener = this.onStoreChange.bind(this);
+		this.controllerChangeListener = this.onStoreChange.bind(this);
 	}
 
 	componentDidMount() {
 		i18nStore.listen(this.languageChangeListener);
+		appStore.listen(this.controllerChangeListener);
 	}
 
 	componentWillUnmount() {
 		i18nStore.stopListening(this.languageChangeListener);
+		appStore.stopListen(this.controllerChangeListener);
 	}
 
 	onStoreChange() {
-		this.setState(i18nStore.getState());
+		console.log("onStoreChange", appStore.getState());
+		this.setState({
+			i18n: i18nStore.getState(),
+			app: appStore.getState()
+		});
 	}
 
 	navigateHome(ev) {
-		appRouter.navigate("/" + this.state.language + "/search");
+		appRouter.navigate("/" + this.state.i18n.language + "/search");
 	}
 
 	navigateLanguage(ev) {
@@ -33,6 +44,7 @@ class AppController extends React.Component {
 			appRouter.navigate(ev.target.getAttribute("data-lang"));
 		} else {
 			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute('data-lang'));
+			console.log(path);
 			appRouter.navigate(path);
 		}
 	}
@@ -46,9 +58,6 @@ class AppController extends React.Component {
 	}
 
 	render() {
-		let child = this.props.controller === "document" ?
-			<Document  i18n={this.state.keys} id={this.props.id} /> :
-			<FacetedSearch config={this.props.config} i18n={this.state.keys} onChange={this.navigateToResult.bind(this)} />
 		return (
 			<div className="container">
 				<header>
@@ -56,19 +65,24 @@ class AppController extends React.Component {
 					<img height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
 					<nav>
 						<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>&nbsp;
-						<a className={this.state.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
-							Ned
+						<a className={this.state.i18n.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
+							NL
 						</a>&nbsp;
-						<a className={this.state.language === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
+						<a className={this.state.i18n.language === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
 							Eng
 						</a>&nbsp;
-						<a className={this.state.language === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
+						<a className={this.state.i18n.language === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
 							Esp
 						</a>
 
 					</nav>
 				</header>
-				{child}
+				<div style={this.state.app.controller === "document" ? {display: "block"} : {display : "none"}}>
+					<Document i18n={this.state.i18n.keys} id={this.state.app.id} /> :
+				</div>
+				<div style={this.state.app.controller === "search" ? {display: "block"} : {display : "none"}}>
+					<FacetedSearch config={this.props.config} i18n={this.state.i18n.keys} onChange={this.navigateToResult.bind(this)} />;
+				</div>
 			</div>
 		);
 	}

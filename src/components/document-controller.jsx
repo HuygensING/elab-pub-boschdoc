@@ -2,7 +2,6 @@ import React from "react";
 import TextLayer from "hire-textlayer";
 import actions from "../actions/document";
 import documentStore from "../stores/document";
-import i18nStore from "../stores/i18n";
 import appRouter from "../router";
 
 class DocumentController extends React.Component {
@@ -16,12 +15,17 @@ class DocumentController extends React.Component {
 
 	componentDidMount() {
 		documentStore.listen(this.storeChangeListener);
-		actions.getDocument(this.props.id);
 		window.addEventListener('scroll', this.scrollListener);
+		if(this.props.id) {
+			actions.getDocument(this.props.id);
+		}
+
 	}
 
 	componentWillReceiveProps(newProps) {
-		actions.getDocument(newProps.id);
+		if(newProps.id) {
+			actions.getDocument(newProps.id);
+		}
 	}
 
 	componentWillUnmount() {

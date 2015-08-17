@@ -9,17 +9,15 @@ class AppController extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = i18nStore.getState();
+		this.languageChangeListener = this.onStoreChange.bind(this);
 	}
 
 	componentDidMount() {
-		i18nStore.listen(this.onStoreChange.bind(this));
-		document.addEventListener("scroll", this.handleDocumentScroll.bind(this), false);
-
+		i18nStore.listen(this.languageChangeListener);
 	}
 
 	componentWillUnmount() {
-		i18nStore.stopListening(this.onStoreChange.bind(this));
-		document.removeEventListener("scroll", this.handleDocumentScroll.bind(this), false);
+		i18nStore.stopListening(this.languageChangeListener);
 	}
 
 	onStoreChange() {
@@ -47,22 +45,12 @@ class AppController extends React.Component {
 		appRouter.navigateToResult({id: obj.id});
 	}
 
-	handleDocumentScroll(ev) {
-		if(this.props.controller === "document") {
-			if(window.pageYOffset > document.getElementsByTagName("header")[0].offsetHeight) {
-				if(!this.state.fixContent) { this.setState({fixContent: true}); }
-			} else {
-				if(this.state.fixContent) { this.setState({fixContent: false}); }
-			}
-		}
-	}
-
 	render() {
 		let child = this.props.controller === "document" ?
 			<Document id={this.props.id} /> :
-			<FacetedSearch config={this.props.config} onChange={this.navigateToResult.bind(this)} />
+			<FacetedSearch config={this.props.config} i18n={this.state.keys} onChange={this.navigateToResult.bind(this)} />
 		return (
-			<div className={"container" + (this.state.fixContent ? " fixed-content" : "")}>
+			<div className="container">
 				<header>
 					<h1><a onClick={this.navigateHome.bind(this)}>BoschDoc</a></h1>
 					<img height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />

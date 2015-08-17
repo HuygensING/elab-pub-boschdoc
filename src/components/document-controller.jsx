@@ -9,14 +9,13 @@ class DocumentController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id: null, i18n: i18nStore.getState(), fixContent: false};
+		this.state = {id: null, fixContent: false};
 		this.scrollListener = this.handleScroll.bind(this);
 		this.storeChangeListener = this.onStoreChange.bind(this);
 	}
 
 	componentDidMount() {
 		documentStore.listen(this.storeChangeListener);
-		i18nStore.listen(this.storeChangeListener);
 		actions.getDocument(this.props.id);
 		window.addEventListener('scroll', this.scrollListener);
 	}
@@ -27,16 +26,15 @@ class DocumentController extends React.Component {
 
 	componentWillUnmount() {
 		documentStore.stopListening(this.storeChangeListener);
-		i18nStore.stopListening(this.storeChangeListener);
 		window.removeEventListener('scroll', this.scrollListener);
 	}
 
 	onStoreChange() {
-		let state = documentStore.getState(), keys = i18nStore.getState().keys;
+		let state = documentStore.getState();
+		let keys = this.props.i18n;
 
 		this.setState({
 			id: state.id,
-			i18n: i18nStore.getState(),
 			name: state.name,
 			facsimiles: state.facsimiles,
 			transcription: state.paralleltexts[keys.transcription],
@@ -60,7 +58,7 @@ class DocumentController extends React.Component {
 	}
 
 	renderTextLayer(key) {
-		let keys = this.state.i18n.keys;
+		let keys = this.props.i18n;
 		return this.state[key] ?
 			<TextLayer 
 				data={this.state[key]}
@@ -97,7 +95,8 @@ class DocumentController extends React.Component {
 
 
 DocumentController.propTypes = {
-	id: React.PropTypes.string
+	id: React.PropTypes.string,
+	i18n: React.PropTypes.object
 };
 
 export  default DocumentController;

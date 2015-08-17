@@ -47,7 +47,7 @@ class AppController extends React.Component {
 
 	render() {
 		let child = this.props.controller === "document" ?
-			<Document id={this.props.id} /> :
+			<Document  i18n={this.state.keys} id={this.props.id} /> :
 			<FacetedSearch config={this.props.config} i18n={this.state.keys} onChange={this.navigateToResult.bind(this)} />
 		return (
 			<div className="container">

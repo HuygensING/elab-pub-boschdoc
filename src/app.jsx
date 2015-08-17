@@ -59,7 +59,7 @@ class AppController extends React.Component {
 
 	render() {
 		return (
-			<div className="container">
+			<div className="app">
 				<header>
 					<h1><a onClick={this.navigateHome.bind(this)}>BoschDoc</a></h1>
 					<img height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
@@ -81,7 +81,7 @@ class AppController extends React.Component {
 					<Document i18n={this.state.i18n.keys} id={this.state.app.id} /> :
 				</div>
 				<div style={this.state.app.controller === "search" ? {display: "block"} : {display : "none"}}>
-					<FacetedSearch config={this.props.config} i18n={this.state.i18n.keys} onChange={this.navigateToResult.bind(this)} />;
+					<FacetedSearch config={this.props.config} i18n={this.state.i18n.keys} onChange={this.navigateToResult.bind(this)} />
 				</div>
 			</div>
 		);

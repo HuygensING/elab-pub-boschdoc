@@ -1,8 +1,7 @@
 import Router from "ampersand-router";
 import React from "react";
 
-import FacetedSearch from "hire-faceted-search";
-import Document from "./components/document-controller";
+
 
 import actions from "./actions/view";
 import App from "./app";
@@ -25,13 +24,13 @@ let AppRouter = Router.extend({
 	search: function(lang) {
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
 		api.getConfig((function(config) {
-			React.render(<App><FacetedSearch config={config} onChange={this.navigateToResult.bind(this)} /></App>, document.body);
+			React.render(<App config={config} />, document.body);
 		}).bind(this));
 	},
 
 	entry: function(lang, id) {
 		if(lang !== i18nStore.getLanguage()) { actions.setLanguage(lang || "nl"); }
-		React.render(<App><Document id={id} /></App>, document.body);
+		React.render(<App controller="document" id={id} />, document.body);
 	}
 });
 

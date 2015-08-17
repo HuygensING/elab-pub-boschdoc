@@ -17,6 +17,7 @@ ul
 	margin 0
 	padding 0
 
+
 a
 	cursor pointer
 
@@ -25,9 +26,7 @@ h1
 	font-size 2em
 	margin 0
 
-h2
-	font-weight bold
-	font-size 1.5em
+.entry > h2
 	margin 0
 
 .container > header
@@ -57,11 +56,12 @@ article.entry .text
 	width 480px
 	padding-right 30px
 
-article.entry.fixed-content > h2
+
+.container.fixed-content .entry > h2
 	position fixed
 	top 0
 	width 100%
-	background-color #fff
+	background-color rgba(255,255,255,0.9)
 	z-index 1
 
 
@@ -75,7 +75,7 @@ article.entry .facsimile
 	height calc(100% - 80px)
 
 
-article.entry.fixed-content .facsimile
+.container.fixed-content .facsimile
 	position fixed
 	top 20px
 
@@ -90,6 +90,9 @@ article.entry .facsimile iframe
 		left calc(100% - 450px - 150px)
 		width calc(450px + 150px)
 
+	article.entry .facsimile
+		width calc(100% - 480px - 60px - 120px)
+
 	.hi-textlayer > *
 		float left
 		clear left
@@ -102,6 +105,7 @@ article.entry .facsimile iframe
 		clear none
 		width 150px
 		overflow hidden
+		margin-top 0
 
 
 .hire-faceted-search

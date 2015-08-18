@@ -78,7 +78,7 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.app.controller === "document" ? {display: "block"} : {display : "none"}}>
-					<Document i18n={this.state.i18n.keys} id={this.state.app.id} /> :
+					<Document i18n={this.state.i18n.keys} id={this.state.app.id} />
 				</div>
 				<div style={this.state.app.controller === "search" ? {display: "block"} : {display : "none"}}>
 					<FacetedSearch config={this.props.config} i18n={this.state.i18n.keys} onChange={this.navigateToResult.bind(this)} />

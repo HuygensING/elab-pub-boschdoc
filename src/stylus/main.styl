@@ -26,6 +26,11 @@ h1
 	font-size 2em
 	margin 0
 
+.app
+	max-width 1400px
+	margin 0 auto
+
+
 .entry > h2
 	margin 0
 
@@ -52,17 +57,21 @@ h1
 
 article.entry .text
 	position relative
-	left calc(100% - 480px)
+	z-index 1
 	width 480px
-	padding-right 30px
 
+article.entry.fixed-content .text
+	margin-top 20px
+
+article.entry .hi-textlayer h2
+	display none
 
 article.entry.fixed-content > h2
 	position fixed
 	top 0
 	width 100%
-	background-color rgba(255,255,255,0.9)
-	z-index 1
+	background-color rgb(255,255,255)
+	z-index 2
 
 
 .hi-textlayer > div
@@ -71,8 +80,12 @@ article.entry.fixed-content > h2
 
 article.entry .facsimile
 	position absolute
-	width calc(100% - 480px - 60px - 30px)
+	width 100%
+	max-width 1400px
+	margin 0 auto
+	padding-left 540px
 	height calc(100% - 80px)
+	z-index 0
 
 
 article.entry.fixed-content .facsimile
@@ -87,11 +100,10 @@ article.entry .facsimile iframe
 
 @media screen and (min-width: 1200px)
 	article.entry .text
-		left calc(100% - 450px - 150px)
 		width calc(450px + 150px)
 
 	article.entry .facsimile
-		width calc(100% - 480px - 60px - 120px)
+		padding-left 720px 
 
 	.hi-textlayer > *
 		float left

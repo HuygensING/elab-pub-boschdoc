@@ -23,7 +23,7 @@ browserSync.init({
 	server: {
 		baseDir: baseDir,
 		middleware: [modRewrite([
-			"^/css/(.*).css$ /css/$1.css [L]",
+			"^/css/(.*)$ /css/$1 [L]",
 			"^/js/(.*).js$ /js/$1.js [L]",
 			"^/data/(.*).json$ /data/$1.json [L]",
 			"^/?.*$ /index.html [L]"

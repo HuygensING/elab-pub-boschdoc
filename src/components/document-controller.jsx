@@ -1,4 +1,5 @@
 import React from "react";
+import {Tabs, Tab} from "hire-tabs";
 import TextLayer from "hire-textlayer";
 import actions from "../actions/document";
 import documentStore from "../stores/document";
@@ -8,7 +9,7 @@ class DocumentController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id: null, fixContent: false};
+		this.state = {id: null, fixContent: false, activeTab: this.props.activeTab};
 		this.scrollListener = this.handleScroll.bind(this);
 		this.storeChangeListener = this.onStoreChange.bind(this);
 	}
@@ -61,12 +62,26 @@ class DocumentController extends React.Component {
 		}
 	}
 
+	handleTabChange(label, index) {
+		switch(index) {
+			case 1:
+				this.setState({activeTab: "translation"});
+				break;
+			case 2:
+				this.setState({activeTab: "remarks"});
+				break;
+			case 0:
+			default:
+				this.setState({activeTab: "transcription"});
+		}
+	}
+
 	renderTextLayer(key) {
 		let keys = this.props.i18n;
 		return this.state[key] ?
 			<TextLayer 
 				data={this.state[key]}
-				label={keys[key]} 
+				label="" 
 				onNavigation={this.navigateToEntry.bind(this)} 
 				relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
 			null;
@@ -78,7 +93,8 @@ class DocumentController extends React.Component {
 		} else {
 			let facs = this.state.facsimiles.length > 0 ?
 				(<iframe key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
-			"no facsimile";
+				"no facsimile";
+			let keys = this.props.i18n;
 
 			return (
 				<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
@@ -87,9 +103,17 @@ class DocumentController extends React.Component {
 						{facs}
 					</div>
 					<div className="text">
-						{this.renderTextLayer("transcription")}
-						{this.renderTextLayer("translation")}
-						{this.renderTextLayer("remarks")}
+						<Tabs onChange={this.handleTabChange.bind(this)}>
+							<Tab active={this.state.activeTab === "transcription"} label={keys["transcription"]}>
+								{this.renderTextLayer("transcription")}
+							</Tab>
+							<Tab active={this.state.activeTab === "translation"} label={keys["translation"]}>
+								{this.renderTextLayer("translation")}
+							</Tab>
+							<Tab active={this.state.activeTab === "remarks"} label={keys["remarks"]}>
+								{this.renderTextLayer("remarks")}
+							</Tab>
+						</Tabs>			
 					</div>
 				</article>
 			)
@@ -99,8 +123,13 @@ class DocumentController extends React.Component {
 
 
 DocumentController.propTypes = {
-	id: React.PropTypes.string,
-	i18n: React.PropTypes.object
+	activeTab: React.PropTypes.string,
+	i18n: React.PropTypes.object,
+	id: React.PropTypes.string
 };
+
+DocumentController.defaultProps = {
+	activeTab: "transcription"
+}
 
 export  default DocumentController;

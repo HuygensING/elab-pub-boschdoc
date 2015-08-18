@@ -9,7 +9,12 @@ class DocumentController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id: null, fixContent: false, activeTab: this.props.activeTab};
+		this.state = {
+			id: null, 
+			fixContent: false, 
+			activeTab: this.props.activeTab,
+			i18n: this.props.i18n
+		};
 		this.scrollListener = this.handleScroll.bind(this);
 		this.storeChangeListener = this.onStoreChange.bind(this);
 	}
@@ -24,8 +29,11 @@ class DocumentController extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		if(newProps.id) {
+		if(newProps.id && newProps.id !== this.props.id) {
 			actions.getDocument(newProps.id);
+		}
+		if(newProps.i18n !== this.state.i18n) {
+			this.setState({i18n: newProps.i18n}, this.onStoreChange.bind(this));
 		}
 	}
 
@@ -36,7 +44,7 @@ class DocumentController extends React.Component {
 
 	onStoreChange() {
 		let state = documentStore.getState();
-		let keys = this.props.i18n;
+		let keys = this.state.i18n;
 
 		this.setState({
 			id: state.id,
@@ -63,6 +71,7 @@ class DocumentController extends React.Component {
 	}
 
 	handleTabChange(label, index) {
+		window.scrollTo(0, 0);
 		switch(index) {
 			case 1:
 				this.setState({activeTab: "translation"});
@@ -77,7 +86,7 @@ class DocumentController extends React.Component {
 	}
 
 	renderTextLayer(key) {
-		let keys = this.props.i18n;
+		let keys = this.state.i18n;
 		return this.state[key] ?
 			<TextLayer 
 				data={this.state[key]}
@@ -94,7 +103,7 @@ class DocumentController extends React.Component {
 			let facs = this.state.facsimiles.length > 0 ?
 				(<iframe key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
 				"no facsimile";
-			let keys = this.props.i18n;
+			let keys = this.state.i18n;
 
 			return (
 				<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>

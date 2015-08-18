@@ -9,7 +9,6 @@ let viewActions = {
 	},
 
 	setController(controller, id) {
-		console.log("setController", controller, id);
 		dispatcher.handleViewAction({
 			actionType: "SET_CONTROLLER",
 			data: { 

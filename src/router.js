@@ -27,7 +27,6 @@ let AppRouter = Router.extend({
 		if(lang !== i18nStore.getLanguage()) { 
 			actions.setLanguage(lang || "nl"); 
 		}
-		console.log(lang, id);
 		actions.setController("document", id);
 	}
 });

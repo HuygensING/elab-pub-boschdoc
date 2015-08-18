@@ -28,7 +28,6 @@ class AppController extends React.Component {
 	}
 
 	onStoreChange() {
-		console.log("onStoreChange", appStore.getState());
 		this.setState({
 			i18n: i18nStore.getState(),
 			app: appStore.getState()
@@ -44,7 +43,6 @@ class AppController extends React.Component {
 			appRouter.navigate(ev.target.getAttribute("data-lang"));
 		} else {
 			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute('data-lang'));
-			console.log(path);
 			appRouter.navigate(path);
 		}
 	}

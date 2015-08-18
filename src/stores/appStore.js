@@ -15,7 +15,6 @@ class AppStore extends BaseStore {
 	}
 
 	receive(data)  {
-		console.log("AppStore receive ", data);
 		this.data = data;
 	}
 }
@@ -23,7 +22,6 @@ class AppStore extends BaseStore {
 let appStore = new AppStore();
 
 let dispatcherCallback = function(payload) {
-	console.log("DISPATCHER CALLBACK", payload.action.data);
 	switch(payload.action.actionType) {
 		case "SET_CONTROLLER":
 			appStore.receive(payload.action.data);

@@ -3,7 +3,9 @@ import {Tabs, Tab} from "hire-tabs";
 import TextLayer from "hire-textlayer";
 import actions from "../actions/document";
 import documentStore from "../stores/document";
+import languageKeys from "../stores/i18n-keys";
 import appRouter from "../router";
+
 
 class DocumentController extends React.Component {
 
@@ -13,7 +15,7 @@ class DocumentController extends React.Component {
 			id: null, 
 			fixContent: false, 
 			activeTab: this.props.activeTab,
-			i18n: this.props.i18n
+			language: this.props.language
 		};
 		this.scrollListener = this.handleScroll.bind(this);
 		this.storeChangeListener = this.onStoreChange.bind(this);
@@ -32,8 +34,8 @@ class DocumentController extends React.Component {
 		if(newProps.id && newProps.id !== this.props.id) {
 			actions.getDocument(newProps.id);
 		}
-		if(newProps.i18n !== this.state.i18n) {
-			this.setState({i18n: newProps.i18n}, this.onStoreChange.bind(this));
+		if(newProps.language !== this.state.language) {
+			this.setState({language: newProps.language});
 		}
 	}
 
@@ -44,16 +46,13 @@ class DocumentController extends React.Component {
 
 	onStoreChange() {
 		let state = documentStore.getState();
-		let keys = this.state.i18n;
+		let keys = languageKeys;
 
 		this.setState({
 			id: state.id,
 			name: state.name,
 			facsimiles: state.facsimiles,
-			transcription: state.paralleltexts[keys.transcription],
-			remarks: state.paralleltexts[keys.remarks],
-			translation: state.paralleltexts[keys.translation],
-			relatedAnnotationLabel: keys.relatedAnnotationLabel
+			paralleltexts: state.paralleltexts
 		});
 	}
 	
@@ -85,15 +84,33 @@ class DocumentController extends React.Component {
 		}
 	}
 
-	renderTextLayer(key) {
-		let keys = this.state.i18n;
-		return this.state[key] ?
+	renderTextLayer(key, lang) {
+		let keys = languageKeys[lang];
+		return this.state.paralleltexts[keys[key]] ? (
 			<TextLayer 
-				data={this.state[key]}
+				data={this.state.paralleltexts[keys[key]]}
 				label="" 
 				onNavigation={this.navigateToEntry.bind(this)} 
-				relatedAnnotationLabel={this.state.relatedAnnotationLabel} /> :
-			null;
+				relatedAnnotationLabel={this.state.relatedAnnotationLabel} />
+		) : null;
+	}
+
+	renderTabs(lang) {
+		let keys = languageKeys[lang];
+
+		return (
+				<Tabs onChange={this.handleTabChange.bind(this)}>
+					<Tab active={this.state.activeTab === "transcription"} label={keys["transcription"]}>
+						{this.renderTextLayer("transcription", lang)}
+					</Tab>
+					<Tab active={this.state.activeTab === "translation"} label={keys["translation"]}>
+						{this.renderTextLayer("translation", lang)}
+					</Tab>
+					<Tab active={this.state.activeTab === "remarks"} label={keys["remarks"]}>
+						{this.renderTextLayer("remarks", lang)}
+					</Tab>
+				</Tabs>			
+		);
 	}
 
 	render() {
@@ -103,7 +120,6 @@ class DocumentController extends React.Component {
 			let facs = this.state.facsimiles.length > 0 ?
 				(<iframe key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
 				"no facsimile";
-			let keys = this.state.i18n;
 
 			return (
 				<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
@@ -111,18 +127,14 @@ class DocumentController extends React.Component {
 					<div className="facsimile">
 						{facs}
 					</div>
-					<div className="text">
-						<Tabs onChange={this.handleTabChange.bind(this)}>
-							<Tab active={this.state.activeTab === "transcription"} label={keys["transcription"]}>
-								{this.renderTextLayer("transcription")}
-							</Tab>
-							<Tab active={this.state.activeTab === "translation"} label={keys["translation"]}>
-								{this.renderTextLayer("translation")}
-							</Tab>
-							<Tab active={this.state.activeTab === "remarks"} label={keys["remarks"]}>
-								{this.renderTextLayer("remarks")}
-							</Tab>
-						</Tabs>			
+					<div className="text" style={{display: this.state.language === "nl" ? "block" : "none"}}>
+						{this.renderTabs("nl")}
+					</div>
+					<div className="text" style={{display: this.state.language === "en" ? "block" : "none"}}>
+						{this.renderTabs("en")}
+					</div>
+					<div className="text" style={{display: this.state.language === "es" ? "block" : "none"}}>
+						{this.renderTabs("es")}
 					</div>
 				</article>
 			)
@@ -133,8 +145,8 @@ class DocumentController extends React.Component {
 
 DocumentController.propTypes = {
 	activeTab: React.PropTypes.string,
-	i18n: React.PropTypes.object,
-	id: React.PropTypes.string
+	id: React.PropTypes.string,
+	language: React.PropTypes.string
 };
 
 DocumentController.defaultProps = {

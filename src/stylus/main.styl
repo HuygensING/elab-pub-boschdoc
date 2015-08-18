@@ -98,8 +98,8 @@ article.entry .hi-textlayer h2
 article.entry.fixed-content .hire-tabs ul
 	position fixed
 	background-color #fff
-	width 100%
-	top 0
+	width 450px
+	top 14px
 	z-index 2
 
 article.entry.fixed-content > h2
@@ -115,15 +115,18 @@ article.entry.fixed-content > h2
 	font-size 16px
 
 article.entry .facsimile
-	position fixed
+	position absolute
 	width 100%
 	max-width 1400px
 	margin 0 auto
-	top 100px
 	padding-left 540px
 	padding-right 60px
-	height calc(100% - 120px)
+	height calc(100% - 100px)
 	z-index 0
+
+article.entry.fixed-content .facsimile
+	position fixed
+	top 20px
 
 
 article.entry .facsimile iframe
@@ -139,7 +142,8 @@ article.entry .facsimile iframe
 	text-decoration underline
 
 @media screen and (min-width: 1200px)
-	article.entry .text
+	article.entry .text,
+	article.entry.fixed-content .hire-tabs ul
 		width calc(450px + 150px)
 
 	article.entry .facsimile

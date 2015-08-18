@@ -2,6 +2,7 @@ import React from "react";
 import appRouter from "./router";
 import appStore from "./stores/appStore";
 import i18nStore from "./stores/i18n";
+import languageKeys from "./stores/i18n-keys";
 import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
 
@@ -76,10 +77,10 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.app.controller === "document" ? {display: "block"} : {display : "none"}}>
-					<Document i18n={this.state.i18n.keys} id={this.state.app.id} />
+					<Document language={this.state.i18n.language} id={this.state.app.id} />
 				</div>
 				<div style={this.state.app.controller === "search" ? {display: "block"} : {display : "none"}}>
-					<FacetedSearch config={this.props.config} i18n={this.state.i18n.keys} onChange={this.navigateToResult.bind(this)} />
+					<FacetedSearch config={this.props.config} i18n={languageKeys[this.state.i18n.language]} onChange={this.navigateToResult.bind(this)} />
 				</div>
 			</div>
 		);

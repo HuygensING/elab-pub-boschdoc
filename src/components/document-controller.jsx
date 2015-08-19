@@ -32,11 +32,17 @@ class DocumentController extends React.Component {
 
 	componentWillReceiveProps(newProps) {
 		if(newProps.id && newProps.id !== this.props.id) {
+			console.log("new props", newProps.id);
 			actions.getDocument(newProps.id);
 		}
 		if(newProps.language !== this.state.language) {
 			this.setState({language: newProps.language});
 		}
+
+		if(newProps.activeTab !== this.state.activeTab) {
+			this.setState({activeTab: newProps.activeTab});
+		}
+
 	}
 
 	componentWillUnmount() {
@@ -47,7 +53,6 @@ class DocumentController extends React.Component {
 	onStoreChange() {
 		let state = documentStore.getState();
 		let keys = languageKeys;
-
 		this.setState({
 			id: state.id,
 			name: state.name,
@@ -73,14 +78,25 @@ class DocumentController extends React.Component {
 		window.scrollTo(0, 0);
 		switch(index) {
 			case 1:
+				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/translation");
 				this.setState({activeTab: "translation"});
 				break;
 			case 2:
+				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/remarks");
 				this.setState({activeTab: "remarks"});
 				break;
 			case 0:
 			default:
+				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/transcription");
 				this.setState({activeTab: "transcription"});
+		}
+	}
+
+	onAnnotationClick(annotatedText) {
+		if(this.state.fixContent) { 
+			window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
+		} else {
+			window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top);
 		}
 	}
 
@@ -90,6 +106,7 @@ class DocumentController extends React.Component {
 			<TextLayer 
 				data={this.state.paralleltexts[keys[key]]}
 				label="" 
+				onAnnotationClick={this.onAnnotationClick.bind(this)}
 				onNavigation={this.navigateToEntry.bind(this)} 
 				relatedAnnotationLabel={this.state.relatedAnnotationLabel} />
 		) : null;

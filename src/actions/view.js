@@ -8,12 +8,13 @@ let viewActions = {
 		});
 	},
 
-	setController(controller, id) {
+	setController(controller, id, activeTab) {
 		dispatcher.handleViewAction({
 			actionType: "SET_CONTROLLER",
 			data: { 
 				controller: controller,
-				id: id
+				id: id,
+				activeTab: activeTab
 			}
 		})
 	}

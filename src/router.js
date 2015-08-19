@@ -9,11 +9,12 @@ let AppRouter = Router.extend({
 		'': 'search',
 		':lang': 'search',
 		':lang/search': 'search',
-		':lang/entry/:id': 'entry'
+		':lang/entry/:id': 'entry',
+		':lang/entry/:id/:activeTab': 'entry'
 	},
 
 	navigateToResult: function(obj) {
-		this.navigate(appStore.getLanguage() + "/entry/" + obj.id);
+		this.navigate(appStore.getLanguage() + "/entry/" + obj.id + "/transcription");
 	},
 
 	search: function(lang) {
@@ -23,11 +24,12 @@ let AppRouter = Router.extend({
 		actions.setController("search");
 	},
 
-	entry: function(lang, id) {
+	entry: function(lang, id, activeTab) {
+		console.log("ROUTE ENTRY", lang, id, activeTab);
 		if(lang !== appStore.getLanguage()) { 
 			actions.setLanguage(lang || "nl"); 
 		}
-		actions.setController("document", id);
+		actions.setController("document", id, activeTab);
 	}
 });
 

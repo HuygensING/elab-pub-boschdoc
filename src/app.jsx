@@ -13,9 +13,13 @@ class AppController extends React.Component {
 		this.state = {
 			language: this.props.language || appStore.getLanguage(),
 			controller: this.props.controller || "search",
-			id: this.props.id || null 
+			id: this.props.id || null,
+			activeTab: this.props.activeTab
 		};
 		this.changeListener = this.onStoreChange.bind(this);
+		this.cachedViews = {
+			search: {}
+		};
 	}
 
 	componentDidMount() {
@@ -27,6 +31,7 @@ class AppController extends React.Component {
 	}
 
 	onStoreChange() {
+		console.log("STATE", appStore.getState());
 		this.setState(appStore.getState());
 	}
 
@@ -51,6 +56,11 @@ class AppController extends React.Component {
 		appRouter.navigateToResult({id: obj.id});
 	}
 
+	renderFacetedSearch(lang) {
+		this.cachedViews.search[lang] = this.cachedViews.search[lang] ||
+			<FacetedSearch config={this.props.config} i18n={languageKeys[lang]} onChange={this.navigateToResult.bind(this)} />
+		return this.cachedViews.search[lang];
+	}
 
 
 	render() {
@@ -77,10 +87,10 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.controller === "document" ? {display: "block"} : {display : "none"}}>
-					<Document id={this.state.id} language={this.state.language}  />
+					<Document activeTab={this.state.activeTab}  id={this.state.id} language={this.state.language} />
 				</div>
 				<div style={this.state.controller === "search" ? {display: "block"} : {display : "none"}}>
-					<FacetedSearch config={this.props.config} i18n={languageKeys[this.state.language]} onChange={this.navigateToResult.bind(this)} />
+					{this.renderFacetedSearch(this.state.language)}
 				</div>
 			</div>
 		);
@@ -88,6 +98,7 @@ class AppController extends React.Component {
 }
 
 AppController.propTypes = {
+	activeTab: React.PropTypes.string,
 	children: React.PropTypes.node,
 	config: React.PropTypes.object,
 	controller: React.PropTypes.string,

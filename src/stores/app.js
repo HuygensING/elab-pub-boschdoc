@@ -16,7 +16,8 @@ class AppStore extends BaseStore {
 		return {
 			language: this.getLanguage(),
 			controller: this.controller,
-			id: this.id
+			id: this.id,
+			activeTab: this.activeTab
 		};
 	}
 
@@ -31,6 +32,7 @@ class AppStore extends BaseStore {
 	receiveController(data)  {
 		this.controller = data.controller;
 		this.id = data.id;
+		this.activeTab = data.activeTab;
 	}
 }
 

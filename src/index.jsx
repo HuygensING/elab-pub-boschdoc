@@ -14,7 +14,7 @@ appRouter.history.start({
 
 
 api.getConfig((function(config) {
-	let [lang, controller, id] = appRouter.history.fragment.split("/");
+	let [lang, controller, id, activeTab] = appRouter.history.fragment.split("/");
 	if(controller === "entry") { controller = "document"; }
-	React.render(<App config={config} controller={controller} id={id} language={lang}  />, document.body);
+	React.render(<App activeTab={activeTab || "transcription"} config={config} controller={controller} id={id} language={lang}  />, document.body);
 }).bind(this));

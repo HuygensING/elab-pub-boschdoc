@@ -4,6 +4,7 @@ import appStore from "./stores/app";
 import languageKeys from "./stores/i18n-keys";
 import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
+import api from "./api";
 
 class AppController extends React.Component {
 
@@ -50,12 +51,14 @@ class AppController extends React.Component {
 		appRouter.navigateToResult({id: obj.id});
 	}
 
+
+
 	render() {
 		return (
 			<div className="app">
 				<header>
 					<a onClick={this.navigateHome.bind(this)}>
-						<img src="/img/logo.png" />
+						<img src={api.docroot + "/img/logo.png"} />
 						<h1>BoschDoc</h1>
 					</a>
 					<img className="hi-logo" height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />

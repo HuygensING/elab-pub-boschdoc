@@ -10,7 +10,7 @@ class AppController extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			language: "nl",
+			language: this.props.language || appStore.getLanguage(),
 			controller: this.props.controller || "search",
 			id: this.props.id || null 
 		};
@@ -54,8 +54,11 @@ class AppController extends React.Component {
 		return (
 			<div className="app">
 				<header>
-					<h1><a onClick={this.navigateHome.bind(this)}>BoschDoc</a></h1>
-					<img height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
+					<a onClick={this.navigateHome.bind(this)}>
+						<img src="/img/logo.png" />
+						<h1>BoschDoc</h1>
+					</a>
+					<img className="hi-logo" height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
 					<nav>
 						<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>&nbsp;
 						<a className={this.state.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
@@ -85,7 +88,8 @@ AppController.propTypes = {
 	children: React.PropTypes.node,
 	config: React.PropTypes.object,
 	controller: React.PropTypes.string,
-	id: React.PropTypes.string
+	id: React.PropTypes.string,
+	language: React.PropTypes.string
 }
 
 

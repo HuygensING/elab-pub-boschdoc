@@ -8,6 +8,7 @@ var baseDir = "./build/development";
 var watchFiles = [
 	baseDir + "/js/*.js",
 	baseDir + "/css/*.css",
+	baseDir + "/img/*.png",
 	baseDir + "/index.html"
 ];
 
@@ -23,6 +24,7 @@ browserSync.init({
 	server: {
 		baseDir: baseDir,
 		middleware: [modRewrite([
+			"^/img/(.*)$ /img/$1 [L]",
 			"^/css/(.*)$ /css/$1 [L]",
 			"^/js/(.*).js$ /js/$1.js [L]",
 			"^/data/(.*).json$ /data/$1.json [L]",

@@ -47,8 +47,11 @@ h1
 	height 80px
 
 
+.app > header > a > img
+	float left
+
 .app > header > nav,
-.app > header > img
+.app > header > img.hi-logo
 	float right
 
 .app > header > nav
@@ -98,13 +101,14 @@ article.entry .hi-textlayer h2
 article.entry.fixed-content .hire-tabs ul
 	position fixed
 	background-color #fff
-	width 450px
+	width 480px
 	top 14px
 	z-index 2
 
 article.entry.fixed-content > h2
 	position fixed
 	top 0
+	padding-top 6px
 	width 100%
 	background-color rgb(255,255,255)
 	z-index 2
@@ -165,4 +169,88 @@ article.entry .facsimile iframe
 
 
 .hire-faceted-search
-	background-color #eee
+	width 100%
+	padding 0
+
+li.hire-faceted-search-text-search input
+	width 100%
+	border 1px solid #ddd
+	border-radius 3px
+	background-color #fff
+	float left
+
+li.hire-faceted-search-text-search .search-icon
+	position relative
+	top -40px
+	float right
+
+li.hire-faceted-search-text-search .search-icon .center-vertical svg
+	fill #ddd
+
+li.hire-faceted-search-text-search .search-icon	
+	width 8%
+
+.hire-faceted-search > .hire-faceted-search-facets
+	width 450px
+
+
+.hire-faceted-search > .hire-faceted-search-results
+	width calc(100% - 450px)
+	padding-left 60px
+
+li.hire-list-facet
+	padding 0
+
+li.hire-list-facet > header > h3
+	font-size 16px
+	font-weight normal
+	font-style italic
+
+.hire-faceted-search-filter-menu > .hire-input
+	width 100%
+
+
+.hire-faceted-search-filter-menu > .hire-input > input
+	border 1px solid #ddd
+	border-radius 3px
+	background-color #fff
+
+li.hire-list-facet:nth-of-type(2) .hire-faceted-search-filter-menu
+	position relative
+	top -30px
+	float right
+
+li.hire-list-facet:nth-of-type(2) ul
+	clear both
+
+.hire-faceted-search-results > ul > li
+	background-color #fafafa
+	border-radius 3px
+	border 1px solid #eee
+	padding 15px
+
+.hire-faceted-search-results > ul.hire-faceted-search-pagination > li
+	background-color #fff
+	border none
+	padding 0
+
+.hire-faceted-search-results > ul > li > label
+	font-weight bold
+
+
+.hire-faceted-search-results > ul > li:hover > label
+	text-decoration underline
+
+.hire-faceted-search-results > ul > li > ul.metadata
+	margin-top 15px
+
+.hire-faceted-search-results > ul > li > ul.metadata > li > label
+	font-size 1.5em
+	font-weight normal
+	font-style italic
+	color #666
+	width 170px
+
+.hire-faceted-search-results > ul > li > ul.metadata > li > span
+	font-size 1.5em
+	color #666

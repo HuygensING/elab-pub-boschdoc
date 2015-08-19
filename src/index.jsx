@@ -16,5 +16,5 @@ appRouter.history.start({
 api.getConfig((function(config) {
 	let [lang, controller, id] = appRouter.history.fragment.split("/");
 	if(controller === "entry") { controller = "document"; }
-	React.render(<App config={config} controller={controller} id={id} />, document.body);
+	React.render(<App config={config} controller={controller} id={id} language={lang}  />, document.body);
 }).bind(this));

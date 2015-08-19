@@ -31,7 +31,6 @@ class AppController extends React.Component {
 	}
 
 	onStoreChange() {
-		console.log("STATE", appStore.getState());
 		this.setState(appStore.getState());
 	}
 
@@ -87,7 +86,7 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.controller === "document" ? {display: "block"} : {display : "none"}}>
-					<Document activeTab={this.state.activeTab}  id={this.state.id} language={this.state.language} />
+					<Document activeTab={this.state.activeTab} annotationId={this.props.annotationId} id={this.state.id} language={this.state.language} />
 				</div>
 				<div style={this.state.controller === "search" ? {display: "block"} : {display : "none"}}>
 					{this.renderFacetedSearch(this.state.language)}
@@ -99,6 +98,7 @@ class AppController extends React.Component {
 
 AppController.propTypes = {
 	activeTab: React.PropTypes.string,
+	annotationId: React.PropTypes.string,
 	children: React.PropTypes.node,
 	config: React.PropTypes.object,
 	controller: React.PropTypes.string,

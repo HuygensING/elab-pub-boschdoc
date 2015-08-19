@@ -10,7 +10,8 @@ let AppRouter = Router.extend({
 		':lang': 'search',
 		':lang/search': 'search',
 		':lang/entry/:id': 'entry',
-		':lang/entry/:id/:activeTab': 'entry'
+		':lang/entry/:id/:activeTab': 'entry',
+		':lang/entry/:id/:activeTab/:annotationId': 'entry',
 	},
 
 	navigateToResult: function(obj) {
@@ -24,12 +25,11 @@ let AppRouter = Router.extend({
 		actions.setController("search");
 	},
 
-	entry: function(lang, id, activeTab) {
-		console.log("ROUTE ENTRY", lang, id, activeTab);
+	entry: function(lang, id, activeTab, annotationId) {
 		if(lang !== appStore.getLanguage()) { 
 			actions.setLanguage(lang || "nl"); 
 		}
-		actions.setController("document", id, activeTab);
+		actions.setController("document", id, activeTab, annotationId);
 	}
 });
 

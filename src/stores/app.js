@@ -17,7 +17,8 @@ class AppStore extends BaseStore {
 			language: this.getLanguage(),
 			controller: this.controller,
 			id: this.id,
-			activeTab: this.activeTab
+			activeTab: this.activeTab,
+			annotationId: this.annotationId
 		};
 	}
 
@@ -33,6 +34,7 @@ class AppStore extends BaseStore {
 		this.controller = data.controller;
 		this.id = data.id;
 		this.activeTab = data.activeTab;
+		this.annotationId = data.annotationId;
 	}
 }
 

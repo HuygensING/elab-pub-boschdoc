@@ -19,6 +19,7 @@ class DocumentController extends React.Component {
 		};
 		this.scrollListener = this.handleScroll.bind(this);
 		this.storeChangeListener = this.onStoreChange.bind(this);
+		this.initialAnnotationId = this.props.annotationId;
 	}
 
 	componentDidMount() {
@@ -27,7 +28,6 @@ class DocumentController extends React.Component {
 		if(this.props.id) {
 			actions.getDocument(this.props.id);
 		}
-
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -43,6 +43,13 @@ class DocumentController extends React.Component {
 			this.setState({activeTab: newProps.activeTab});
 		}
 
+	}
+
+	componentDidUpdate() {
+		if(this.initialAnnotationId) {
+			this.onAnnotationClick(document.getElementById(this.props.annotationId));
+			this.initialAnnotationId = null;
+		}
 	}
 
 	componentWillUnmount() {
@@ -93,11 +100,15 @@ class DocumentController extends React.Component {
 	}
 
 	onAnnotationClick(annotatedText) {
-		if(this.state.fixContent) { 
+		if(this.state.fixContent) {
 			window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
 		} else {
-			window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top);
+			window.scrollTo(0, document.getElementsByTagName("header")[0].offsetHeight + 1);
+			window.setTimeout(function() {
+				window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
+			}, 50);
 		}
+		appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/" + this.state.activeTab + "/" + annotatedText.getAttribute("id"), {replace: true});
 	}
 
 	renderTextLayer(key, lang) {
@@ -162,6 +173,7 @@ class DocumentController extends React.Component {
 
 DocumentController.propTypes = {
 	activeTab: React.PropTypes.string,
+	annotationId: React.PropTypes.string,
 	id: React.PropTypes.string,
 	language: React.PropTypes.string
 };

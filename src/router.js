@@ -1,6 +1,6 @@
 import Router from "ampersand-router";
 import actions from "./actions/view";
-import i18nStore from "./stores/i18n";
+import appStore from "./stores/app";
 import api from "./api";
 
 let AppRouter = Router.extend({
@@ -13,18 +13,18 @@ let AppRouter = Router.extend({
 	},
 
 	navigateToResult: function(obj) {
-		this.navigate(i18nStore.getLanguage() + "/entry/" + obj.id);
+		this.navigate(appStore.getLanguage() + "/entry/" + obj.id);
 	},
 
 	search: function(lang) {
-		if(lang !== i18nStore.getLanguage()) { 
+		if(lang !== appStore.getLanguage()) { 
 			actions.setLanguage(lang || "nl"); 
 		}
 		actions.setController("search");
 	},
 
 	entry: function(lang, id) {
-		if(lang !== i18nStore.getLanguage()) { 
+		if(lang !== appStore.getLanguage()) { 
 			actions.setLanguage(lang || "nl"); 
 		}
 		actions.setController("document", id);

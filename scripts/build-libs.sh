@@ -15,8 +15,6 @@ else
 	cp src/sample-data/* build/development/data
 fi
 
-cp src/logo.png build/development/img
-
 # Bundle React libs
 node_modules/.bin/browserify \
 	--require classnames \

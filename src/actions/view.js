@@ -18,6 +18,17 @@ let viewActions = {
 				annotationId: annotationId
 			}
 		})
+	},
+
+	setPages(ids, prev, next) {
+		dispatcher.handleViewAction({
+			actionType: "SET_PAGES",
+			data: {
+				ids: ids,
+				prev: prev,
+				next: next
+			}
+		});
 	}
 };
 

@@ -16,6 +16,16 @@ export default {
 		}, serverActions.receiveDocument);
 	},
 
+	fetchNextResultPage(url, isPrev) {
+		let callback = isPrev ?
+			serverActions.receivePrevPages : 
+			serverActions.receiveNextPages
+		this.performXhr({
+			method: 'GET',
+			uri: url
+		}, callback);
+	},
+
 	getConfig(callback) {
 		this.performXhr({
 			method: 'GET',

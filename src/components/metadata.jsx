@@ -9,9 +9,9 @@ class Metadata extends React.Component {
 		this.metadataKeys = new LanguageFilter(this.props.language, this.props.metadata.map(function(entry) { return entry.field}));
 	}
 
-	renderMetadataField(entry) {
+	renderMetadataField(entry, i) {
 		return (
-			<li>
+			<li key={i}>
 				<label>{languageKeys[this.props.language].facetTitles[entry.field]}</label>
 				<span>{entry.value}</span>
 			</li>

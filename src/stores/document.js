@@ -7,7 +7,7 @@ class DocumentStore extends BaseStore {
 
 	constructor() {
 		super();
-		this.data = null;
+		this.data = {id: null};
 	}
 
 	getState() {

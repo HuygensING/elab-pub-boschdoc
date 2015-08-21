@@ -26,6 +26,11 @@ export default {
 			Temas: "Temas",
 			"Thema's": "Thema's"
 		},
+		pagination: {
+			search: "Zoeken",
+			previous: "Vorige",
+			next: "Volgende"			
+		},
 		"Results found": "Gevonden resultaten",
 		"Sort by": "Sorteer op",
 		"Show all": "Alles"
@@ -57,6 +62,11 @@ export default {
 			Temas: "Temas",
 			"Thema's": "Thema's"
 		},
+		pagination: {
+			search: "Search",
+			previous: "Previous",
+			next: "Next"
+		},
 		"Results found": "Results found",
 		"Sort by": "Sort by",
 		"Show all": "Show all"
@@ -87,6 +97,11 @@ export default {
 			Themes: "Themes",
 			Temas: "Temas",
 			"Thema's": "Thema's"
+		},
+		pagination: {
+			search: "[ES: search]",
+			previous: "[ES: previous]",
+			next: "[ES: next]"
 		},
 		"Results found": "[ES: Results found]",
 		"Sort by": "[ES: Sort by]",

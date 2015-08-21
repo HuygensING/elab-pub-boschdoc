@@ -1,11 +1,67 @@
 import React from "react";
 import appRouter from "./router";
 import appStore from "./stores/app";
+import viewActions from "./actions/view";
 import languageKeys from "./stores/i18n-keys";
 import LanguageFilter from "./stores/i18n-filter";
 import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
 import api from "./api";
+
+const MOCK_IDS = [
+23006,
+21741,
+22244,
+22245,
+22246,
+22247,
+22248,
+22250,
+22249,
+22251,
+22252,
+22253,
+22936,
+22254,
+22255,
+22256,
+22257,
+22826,
+26791,
+22827,
+22258,
+22259,
+22260,
+22261,
+23003,
+22262,
+22932,
+22263,
+26793,
+22264,
+22265,
+22266,
+22933,
+22934,
+22267,
+22268,
+22269,
+22270,
+22271,
+22272,
+22273,
+22274,
+22275,
+23008,
+26792,
+23002,
+22276,
+23001,
+22277,
+22278
+];
+
+viewActions.setPages(MOCK_IDS, null, "http://boschdoc.huygens.knaw.nl/draft/api/search/1440162270454?start=50&rows=50");
 
 class AppController extends React.Component {
 
@@ -99,7 +155,11 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.controller === "document" ? {display: "block"} : {display : "none"}}>
-					<Document activeTab={this.state.activeTab} annotationId={this.props.annotationId} id={this.state.id} language={this.state.language} />
+					<Document 
+						activeTab={this.state.activeTab} 
+						annotationId={this.props.annotationId} 
+						id={this.state.id} 
+						language={this.state.language} />
 				</div>
 				<div style={this.state.controller === "search" ? {display: "block"} : {display : "none"}}>
 					{this.renderFacetedSearch(this.state.language)}

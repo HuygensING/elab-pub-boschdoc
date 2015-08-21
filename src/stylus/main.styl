@@ -77,17 +77,23 @@ h2
 .app > header > nav > a.selected
 	font-weight 700
 
-.hire-tabs > ul li
+.hire-paginator
+	float right
+
+.hire-tabs > ul li,
+.hire-paginator li
 	font-size 12px
 	cursor pointer
 	display inline-block
 	background-color #eee
-	border-radius 10px
-	padding 6px
+	border-radius 4px
+	padding 2px 10px
+	color #666
+	margin-right 15px
+
+.hire-tabs > ul li
 	margin-top 30px
 	margin-bottom 30px
-	margin-right 15px
-	color #666
 
 .hire-tabs > ul li.active
 	font-weight 700
@@ -149,6 +155,7 @@ article.entry .facsimile
 	padding-right 30px
 	height calc(100% - 150px)
 	z-index 0
+	top 140px
 
 article.entry.fixed-content .facsimile
 	position fixed

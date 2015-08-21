@@ -1,6 +1,7 @@
 import React from "react";
 import {Tabs, Tab} from "hire-tabs";
 import TextLayer from "hire-textlayer";
+import Metadata from "./metadata";
 import actions from "../actions/document";
 import documentStore from "../stores/document";
 import languageKeys from "../stores/i18n-keys";
@@ -32,7 +33,6 @@ class DocumentController extends React.Component {
 
 	componentWillReceiveProps(newProps) {
 		if(newProps.id && newProps.id !== this.props.id) {
-			console.log("new props", newProps.id);
 			actions.getDocument(newProps.id);
 		}
 		if(newProps.language !== this.state.language) {
@@ -42,7 +42,6 @@ class DocumentController extends React.Component {
 		if(newProps.activeTab !== this.state.activeTab) {
 			this.setState({activeTab: newProps.activeTab});
 		}
-
 	}
 
 	componentDidUpdate() {
@@ -64,7 +63,8 @@ class DocumentController extends React.Component {
 			id: state.id,
 			name: state.name,
 			facsimiles: state.facsimiles,
-			paralleltexts: state.paralleltexts
+			paralleltexts: state.paralleltexts,
+			metadata: state.metadata
 		});
 	}
 	
@@ -91,6 +91,10 @@ class DocumentController extends React.Component {
 			case 2:
 				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/remarks");
 				this.setState({activeTab: "remarks"});
+				break;
+			case 3:
+				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/metadata");
+				this.setState({activeTab: "metadata"});
 				break;
 			case 0:
 			default:
@@ -137,7 +141,10 @@ class DocumentController extends React.Component {
 					<Tab active={this.state.activeTab === "remarks"} label={keys["remarks"]}>
 						{this.renderTextLayer("remarks", lang)}
 					</Tab>
-				</Tabs>			
+					<Tab active={this.state.activeTab === "metadata"} label={keys["metadata"]}>
+						<Metadata language={lang} metadata={this.state.metadata}  />
+					</Tab>
+				</Tabs>
 		);
 	}
 

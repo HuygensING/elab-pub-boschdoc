@@ -2,6 +2,7 @@ import React from "react";
 import appRouter from "./router";
 import appStore from "./stores/app";
 import languageKeys from "./stores/i18n-keys";
+import LanguageFilter from "./stores/i18n-filter";
 import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
 import api from "./api";
@@ -56,8 +57,17 @@ class AppController extends React.Component {
 	}
 
 	renderFacetedSearch(lang) {
-		this.cachedViews.search[lang] = this.cachedViews.search[lang] ||
-			<FacetedSearch config={this.props.config} i18n={languageKeys[lang]} onChange={this.navigateToResult.bind(this)} />
+		if(this.cachedViews.search[lang]) { return this.cachedViews.search[lang]; }
+
+		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
+		this.cachedViews.search[lang] = (
+			<FacetedSearch 
+				config={this.props.config} 
+				facetList={facetList}
+				i18n={languageKeys[lang]} 
+				onChange={this.navigateToResult.bind(this)} />
+		);
+
 		return this.cachedViews.search[lang];
 	}
 
@@ -102,7 +112,6 @@ class AppController extends React.Component {
 AppController.propTypes = {
 	activeTab: React.PropTypes.string,
 	annotationId: React.PropTypes.string,
-	children: React.PropTypes.node,
 	config: React.PropTypes.object,
 	controller: React.PropTypes.string,
 	id: React.PropTypes.string,

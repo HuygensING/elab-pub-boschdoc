@@ -31,6 +31,7 @@ browserSync.init({
 			"^/?.*$ /index.html [L]"
 		]), function(req, res, next) {
 			if(req.originalUrl.match(/\.json$/)) {
+				res.setHeader('Access-Control-Allow-Origin', '*');
 				res.setHeader('Content-type', 'application/json; charset=utf-8');
 			}
 			next();

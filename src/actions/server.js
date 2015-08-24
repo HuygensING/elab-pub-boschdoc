@@ -13,16 +13,7 @@ let serverActions = {
 			actionType: "NEXT_PAGES_RECEIVE",
 			data: JSON.parse(data)
 		});
-	},
-
-	receivePrevPages(err, resp, data) {
-		dispatcher.handleServerAction({
-			actionType: "PREV_PAGES_RECEIVE",
-			data: JSON.parse(data)
-		});
-	},
-
-
+	}
 };
 
 export default serverActions;

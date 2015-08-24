@@ -8,60 +8,6 @@ import FacetedSearch from "hire-faceted-search";
 import Document from "./components/document-controller";
 import api from "./api";
 
-const MOCK_IDS = [
-23006,
-21741,
-22244,
-22245,
-22246,
-22247,
-22248,
-22250,
-22249,
-22251,
-22252,
-22253,
-22936,
-22254,
-22255,
-22256,
-22257,
-22826,
-26791,
-22827,
-22258,
-22259,
-22260,
-22261,
-23003,
-22262,
-22932,
-22263,
-26793,
-22264,
-22265,
-22266,
-22933,
-22934,
-22267,
-22268,
-22269,
-22270,
-22271,
-22272,
-22273,
-22274,
-22275,
-23008,
-26792,
-23002,
-22276,
-23001,
-22277,
-22278
-];
-
-viewActions.setPages(MOCK_IDS, null, "http://boschdoc.huygens.knaw.nl/draft/api/search/1440162270454?start=50&rows=50");
 
 class AppController extends React.Component {
 
@@ -77,6 +23,7 @@ class AppController extends React.Component {
 		this.cachedViews = {
 			search: {}
 		};
+		this.searchTerm = null;
 	}
 
 	componentDidMount() {
@@ -109,7 +56,24 @@ class AppController extends React.Component {
 	}
 
 	navigateToResult(obj) {
+		window.scrollTo(0, 0);
 		appRouter.navigateToResult({id: obj.id});
+	}
+
+	onResultsChange(data) {
+		console.log("CHANGE results", data);
+
+		let ids = data.results.map((r) => { return r.id});
+		if(data.term !== this.searchTerm) {
+			let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
+			let next = data._next ? data._next.replace("draft//api", "draft/api") : null;
+			this.searchTerm = data.term;
+			viewActions.setPages(ids, prev, next, 0);
+		} else {
+//			"PUSH"
+			viewActions.pushPages(data);
+			console.log("PUSH NEW PAGES FIRED");
+		}
 	}
 
 	renderFacetedSearch(lang) {
@@ -120,8 +84,9 @@ class AppController extends React.Component {
 			<FacetedSearch 
 				config={this.props.config} 
 				facetList={facetList}
-				i18n={languageKeys[lang]} 
-				onChange={this.navigateToResult.bind(this)} />
+				labels={languageKeys[lang]} 
+				onChange={this.onResultsChange.bind(this)}
+				onSelect={this.navigateToResult.bind(this)}	 />
 		);
 
 		return this.cachedViews.search[lang];

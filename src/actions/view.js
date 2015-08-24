@@ -20,14 +20,22 @@ let viewActions = {
 		})
 	},
 
-	setPages(ids, prev, next) {
+	setPages(ids, prev, next, start) {
 		dispatcher.handleViewAction({
 			actionType: "SET_PAGES",
 			data: {
 				ids: ids,
 				prev: prev,
-				next: next
+				next: next,
+				start: start
 			}
+		});
+	},
+
+	pushPages(data) {
+		dispatcher.handleServerAction({
+			actionType: "NEXT_PAGES_RECEIVE",
+			data: data
 		});
 	}
 };

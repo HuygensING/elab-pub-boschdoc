@@ -71,10 +71,8 @@ class DocumentController extends React.Component {
 
 		if(pageIndex === ids.length - 1 && pageState.next) {
 			actions.getNextResultPage(pageState.next);
-		} else if(pageIndex === 0 && pageState.prev) {
-			actions.getPrevResultPage(pageState.prev);
 		}
-
+		
 		console.log("CURRENT PAGE INDEX", pageIndex);
 
 		this.setState({

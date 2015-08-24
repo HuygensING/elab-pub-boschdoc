@@ -10,7 +10,8 @@ class PagesStore extends BaseStore {
 		this.data = {
 			ids: [],
 			next: null,
-			prev: null
+			prev: null,
+			loadedStartIndices: []
 		};
 	}
 
@@ -18,30 +19,29 @@ class PagesStore extends BaseStore {
 		return this.data;
 	}
 
-	receive(data)  {
-		console.log("SET PAGES", data);
+	reset(data)  {
 		this.data = data;
+		this.data.loadedStartIndices = [this.data.start];
+		console.log("RESET PAGES", this.data);
 	}
 
-	receivePages(data, isPrev) {
-		let newIds = data.results.map(res => res.id);
-
-		if(isPrev) {
-			this.data.ids = data.results.map(res => res.id).concat(this.data.ids);
-		} else {
+	pushPages(data) {
+		if(this.data.loadedStartIndices.indexOf(data.start) < 0) {
+			let newIds = data.results.map(res => res.id);
 			this.data.ids = this.data.ids.concat(data.results.map(res => res.id));
+			if(data._next) {
+				this.data.next = data._next.replace("draft//api", "draft/api");
+			} else {
+				this.data.next = null
+			}
+			if(data._prev) {
+				this.data.prev = data._prev.replace("draft//api", "draft/api");
+			} else {
+				this.data.prev = null;
+			}
+			this.data.loadedStartIndices.push(data.start);
 		}
-
-		if(data._next) {
-			this.data.next = data._next.replace("draft//api", "draft/api");
-		} else {
-			this.data.next = null
-		}
-		if(data._prev) {
-			this.data.prev = data._prev.replace("draft//api", "draft/api");
-		} else {
-			this.data.prev = null;
-		}
+		console.log("PUSH pages", this.data);
 	}
 }
 
@@ -50,13 +50,10 @@ let pagesStore = new PagesStore();
 let dispatcherCallback = function(payload) {
 	switch(payload.action.actionType) {
 		case "SET_PAGES":
-			pagesStore.receive(payload.action.data);
+			pagesStore.reset(payload.action.data);
 			break;
 		case "NEXT_PAGES_RECEIVE":
-			pagesStore.receivePages(payload.action.data, false);
-			break;
-		case "PREV_PAGES_RECEIVE":
-			pagesStore.receivePages(payload.action.data, true);
+			pagesStore.pushPages(payload.action.data);
 			break;
 		default:
 			return;

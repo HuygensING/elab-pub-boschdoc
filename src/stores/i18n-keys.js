@@ -31,9 +31,9 @@ export default {
 			previous: "Vorige",
 			next: "Volgende"			
 		},
-		"Results found": "Gevonden resultaten",
-		"Sort by": "Sorteer op",
-		"Show all": "Alles"
+		"resultsFound": "Gevonden resultaten",
+		"sortBy": "Sorteer op",
+		"showAll": "Alles"
 	},
 	en: {
 		transcription: "Transcription",
@@ -67,9 +67,9 @@ export default {
 			previous: "Previous",
 			next: "Next"
 		},
-		"Results found": "Results found",
-		"Sort by": "Sort by",
-		"Show all": "Show all"
+		"resultsFound": "Results found",
+		"sortBy": "Sort by",
+		"showAll": "Show all"
 	},
 	es: {
 		transcription: "Transcripción",
@@ -103,8 +103,8 @@ export default {
 			previous: "[ES: previous]",
 			next: "[ES: next]"
 		},
-		"Results found": "[ES: Results found]",
-		"Sort by": "[ES: Sort by]",
-		"Show all": "[ES: Show all]"
+		"resultsFound": "[ES: Results found]",
+		"sortBy": "[ES: Sort by]",
+		"showAll": "[ES: Show all]"
 	}
 };

@@ -5,6 +5,8 @@ import App from "./app";
 
 const ROOT = "/elaborate/publication/boschdoc/development";
 
+api.docroot = "/draft";
+
 appRouter.history.start({
 	root: ROOT
 });

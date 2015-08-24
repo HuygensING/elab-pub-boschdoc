@@ -51,18 +51,12 @@ class AppController extends React.Component {
 		}
 	}
 
-	navigateSample(ev) {
-		appRouter.navigateToResult({id: "LINKTEST"});
-	}
-
 	navigateToResult(obj) {
 		window.scrollTo(0, 0);
 		appRouter.navigateToResult({id: obj.id});
 	}
 
 	onResultsChange(data) {
-		console.log("CHANGE results", data);
-
 		let ids = data.results.map((r) => { return r.id});
 		if(data.term !== this.searchTerm) {
 			let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
@@ -70,18 +64,13 @@ class AppController extends React.Component {
 			this.searchTerm = data.term;
 			viewActions.setPages(ids, prev, next, 0);
 		} else {
-//			"PUSH"
 			viewActions.pushPages(data);
-			console.log("PUSH NEW PAGES FIRED");
 		}
 	}
 
 	renderFacetedSearch(lang) {
 		if(this.cachedViews.search[lang]) { return this.cachedViews.search[lang]; }
-		console.log(LanguageFilter);
-		console.log(languageKeys);
-		console.log(lang);
-		console.log(languageKeys[lang]);
+
 		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
 		this.cachedViews.search[lang] = (
 			<FacetedSearch 
@@ -105,13 +94,10 @@ class AppController extends React.Component {
 						<h1>BoschDoc</h1>
 					</a>
 
-
-
 					<img className="hi-logo" height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
 					<nav>
-						<a onClick={this.navigateSample.bind(this)}>voorbeeld record</a>&nbsp;
 						<a className={this.state.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
-							NL
+							Ned
 						</a>&nbsp;
 						<a className={this.state.language === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
 							Eng
@@ -119,7 +105,6 @@ class AppController extends React.Component {
 						<a className={this.state.language === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
 							Esp
 						</a>
-
 					</nav>
 				</header>
 				<div style={this.state.controller === "document" ? {display: "block"} : {display : "none"}}>

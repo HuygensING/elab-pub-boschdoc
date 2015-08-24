@@ -5,7 +5,8 @@ rm -rf build/development
 mkdir -p build/development/js
 mkdir build/development/css
 
-if [ $LOCAL_ENV == "dev" ]; then
+if [ $LOCAL_ENV = "dev" ]; then
+	mkdir build/development/data
 	cp src/index.html build/development/index.html
 	cp ~/data/* build/development/data
 fi

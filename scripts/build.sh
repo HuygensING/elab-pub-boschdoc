@@ -9,7 +9,7 @@
 
 
 INDEX_FILE=deploy.jsx
-if [ $LOCAL_ENV == "dev" ]; then
+if [ $LOCAL_ENV = "dev" ]; then
 	INDEX_FILE=index.jsx
 fi
 

@@ -23,4 +23,4 @@ node_modules/.bin/browserify src/$INDEX_FILE \
 	--transform [ babelify --plugins object-assign ] \
 	--verbose > build/development/js/react-src.js
 
-cat build/development/js/react-libs.js build/development/js/react-src.js > build/development/js/main.js
+echo "`cat build/development/js/react-libs.js`;`cat build/development/js/react-src.js`" > build/development/js/main.js

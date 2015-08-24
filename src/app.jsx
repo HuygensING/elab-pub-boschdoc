@@ -59,14 +59,9 @@ class AppController extends React.Component {
 	onResultsChange(data) {
 		console.log("RESULTS change",data);
 		let ids = data.results.map((r) => { return r.id});
-		if(data.term !== this.searchTerm) {
-			let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
-			let next = data._next ? data._next.replace("draft//api", "draft/api") : null;
-			this.searchTerm = data.term;
-			viewActions.setPages(ids, prev, next, 0);
-		} else {
-			viewActions.pushPages(data);
-		}
+		let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
+		let next = data._next ? data._next.replace("draft//api", "draft/api") : null;
+		viewActions.setPages(ids, prev, next, 0);
 	}
 
 	renderFacetedSearch(lang) {

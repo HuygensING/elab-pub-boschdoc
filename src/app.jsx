@@ -78,7 +78,7 @@ class AppController extends React.Component {
 
 	renderFacetedSearch(lang) {
 		if(this.cachedViews.search[lang]) { return this.cachedViews.search[lang]; }
-
+		console.log(LanguageFilter);
 		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
 		this.cachedViews.search[lang] = (
 			<FacetedSearch 

@@ -97,6 +97,9 @@ h2
 	color #666
 	margin-right 12px
 
+.hire-paginator li:last-of-type
+	margin-right 0
+
 .hire-tabs > ul li
 	margin-top 30px
 	margin-bottom 30px
@@ -149,6 +152,9 @@ article.entry.fixed-content > h2
 	z-index 2
 
 
+article.entry .source-info
+	display none
+
 .hi-textlayer > div
 	font-family: 'Merriweather', serif
 
@@ -165,8 +171,17 @@ article.entry .facsimile
 
 article.entry.fixed-content .facsimile
 	position fixed
-	top 20px
+	top 50px
 
+article.entry.fixed-content .hire-paginator
+	position fixed
+	top 12px
+	width calc(100% - 30px)
+	max-width 1400px
+	padding-left 540px
+	padding-right 30px
+	text-align right
+	z-index 3
 
 article.entry .facsimile iframe
 	height 100%
@@ -327,6 +342,10 @@ li.hire-faceted-search-text-search .search-icon .center-vertical
 .hire-faceted-search-results > ul > li > ul.metadata
 	margin-top 15px
 
+li.hire-list-facet.show-all
+	padding-left 0
+
+
 .hire-faceted-search-results > ul > li > ul.metadata > li > label
 	font-size 16px
 	font-weight 300
@@ -352,8 +371,10 @@ li.hire-list-facet > ul > li.hire-list-facet-list-item svg.checked path:last-chi
 	article.entry.fixed-content .hire-tabs > ul
 		width calc(450px + 150px)
 
+	article.entry.fixed-content .hire-paginator,
 	article.entry .facsimile
 		padding-left 720px 
+		padding-right 60px
 
 	.hi-textlayer > *
 		float left

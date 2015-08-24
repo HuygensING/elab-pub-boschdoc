@@ -2,6 +2,7 @@ import React from "react";
 import {Tabs, Tab} from "hire-tabs";
 import TextLayer from "hire-textlayer";
 import Metadata from "./metadata";
+import SourceInfo from "./source-info";
 import Paginator from "./paginator";
 import actions from "../actions/document";
 import documentStore from "../stores/document";
@@ -193,6 +194,10 @@ class DocumentController extends React.Component {
 						onSearchClick={this.onSearchClick.bind(this)} 
 						/>
 					<h2>{this.state.name}</h2>
+					<div className="source-info">
+						<SourceInfo metadata={this.state.metadata}  />
+					</div>
+
 					<div className="facsimile">
 						{facs}
 					</div>

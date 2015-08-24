@@ -5,8 +5,8 @@ class SourceInfo extends React.Component {
 
 	render() {
 		return (
-			<span>
-				SOURCE INFO: {JSON.stringify(this.props.metadata)}
+			<span title={JSON.stringify(this.props.metadata)}>
+				TODO Bron: {JSON.stringify(this.props.metadata)}
 			</span>
 		);
 	}

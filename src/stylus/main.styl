@@ -152,8 +152,7 @@ article.entry.fixed-content > h2
 	z-index 2
 
 
-article.entry .source-info
-	display none
+
 
 .hi-textlayer > div
 	font-family: 'Merriweather', serif
@@ -165,13 +164,29 @@ article.entry .facsimile
 	margin 0 auto
 	padding-left 540px
 	padding-right 30px
-	height calc(100% - 150px)
+	height calc(100% - 140px)
 	z-index 0
-	top 140px
+	top 160px
 
 article.entry.fixed-content .facsimile
 	position fixed
-	top 50px
+	top 70px
+
+article.entry .source-info
+	position absolute
+	width calc(100% - 30px)
+	max-width 1400px
+	margin 0 auto
+	padding-left 540px
+	padding-right 30px
+	top 130px
+	font-size 12px
+	height 16px
+	overflow hidden
+
+article.entry.fixed-content .source-info
+	position fixed
+	top 50px	
 
 article.entry.fixed-content .hire-paginator
 	position fixed
@@ -372,7 +387,8 @@ li.hire-list-facet > ul > li.hire-list-facet-list-item svg.checked path:last-chi
 		width calc(450px + 150px)
 
 	article.entry.fixed-content .hire-paginator,
-	article.entry .facsimile
+	article.entry .facsimile,
+	article.entry .source-info
 		padding-left 720px 
 		padding-right 60px
 

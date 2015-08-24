@@ -19,6 +19,8 @@ node_modules/.bin/browserify src/$INDEX_FILE \
 	--external classnames \
 	--external immutable \
 	--external react \
-	--standalone WomenWritersEdit \
+	--standalone BoschDoc \
 	--transform [ babelify --plugins object-assign ] \
 	--verbose > build/development/js/react-src.js
+
+cat build/development/js/react-src.js build/development/js/react.js > build/development/js/main.js

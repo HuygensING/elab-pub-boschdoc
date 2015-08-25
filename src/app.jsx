@@ -4,7 +4,7 @@ import appStore from "./stores/app";
 import viewActions from "./actions/view";
 import languageKeys from "./stores/i18n-keys";
 import LanguageFilter from "./stores/i18n-filter";
-import FacetedSearch from "hire-faceted-search";
+import FacetedSearch from "hire-faceted-search-elab";
 import Document from "./components/document-controller";
 import api from "./api";
 

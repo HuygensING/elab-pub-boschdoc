@@ -22,7 +22,6 @@ class PagesStore extends BaseStore {
 	reset(data)  {
 		this.data = data;
 		this.data.loadedStartIndices = [this.data.start];
-		console.log("RESET PAGES", this.data);
 	}
 
 	pushPages(data) {
@@ -41,7 +40,6 @@ class PagesStore extends BaseStore {
 			}
 			this.data.loadedStartIndices.push(data.start);
 		}
-		console.log("PUSH pages", this.data);
 	}
 }
 

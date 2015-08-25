@@ -57,7 +57,6 @@ class AppController extends React.Component {
 	}
 
 	onResultsChange(data) {
-		console.log("RESULTS change",data);
 		let ids = data.results.map((r) => { return r.id});
 		let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
 		let next = data._next ? data._next.replace("draft//api", "draft/api") : null;

@@ -194,9 +194,7 @@ class DocumentController extends React.Component {
 						onSearchClick={this.onSearchClick.bind(this)} 
 						/>
 					<h2>{this.state.name}</h2>
-					<div className="source-info">
-						<SourceInfo metadata={this.state.metadata}  />
-					</div>
+					<SourceInfo metadata={this.state.metadata}  />
 
 					<div className="facsimile">
 						{facs}

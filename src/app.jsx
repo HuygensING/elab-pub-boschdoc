@@ -1,45 +1,37 @@
 import React from "react";
 import appRouter from "./router";
-import appStore from "./stores/app";
 import viewActions from "./actions/view";
 import languageKeys from "./stores/i18n-keys";
 import LanguageFilter from "./stores/i18n-filter";
 import FacetedSearch from "hire-faceted-search-elab";
 import Document from "./components/document-controller";
 import api from "./api";
+import appStore from "./app-store";
 
 
 class AppController extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			language: this.props.language || appStore.getLanguage(),
-			controller: this.props.controller || "search",
-			id: this.props.id || null,
-			activeTab: this.props.activeTab
-		};
-		this.changeListener = this.onStoreChange.bind(this);
+		this.state = appStore.getState();
 		this.cachedViews = {
 			search: {}
 		};
-		this.searchTerm = null;
 	}
 
 	componentDidMount() {
-		appStore.listen(this.changeListener);
+		this.unsubscribe = appStore.subscribe(() =>
+			this.setState(appStore.getState())
+		);
 	}
 
 	componentWillUnmount() {
-		appStore.stopListening(this.changeListener);
+		this.unsubscribe();
 	}
 
-	onStoreChange() {
-		this.setState(appStore.getState());
-	}
 
 	navigateHome(ev) {
-		appRouter.navigate("/" + this.state.language + "/search");
+		appRouter.navigate("/" + this.state.language.current + "/search");
 	}
 
 	navigateLanguage(ev) {
@@ -91,26 +83,26 @@ class AppController extends React.Component {
 
 					<img className="hi-logo" height="66px" src="http://www.huygens.knaw.nl/wp-content/themes/BDboilerplate/images/logo.png" width="92px" />
 					<nav>
-						<a className={this.state.language === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
+						<a className={this.state.language.current === "nl" ? "selected" : null} data-lang="nl" onClick={this.navigateLanguage.bind(this)} >
 							Ned
 						</a>&nbsp;
-						<a className={this.state.language === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
+						<a className={this.state.language.current === "en" ? "selected" : null} data-lang="en" onClick={this.navigateLanguage.bind(this)} >
 							Eng
 						</a>&nbsp;
-						<a className={this.state.language === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
+						<a className={this.state.language.current === "es" ? "selected" : null} data-lang="es" onClick={this.navigateLanguage.bind(this)} >
 							Esp
 						</a>
 					</nav>
 				</header>
-				<div style={this.state.controller === "document" ? {display: "block"} : {display : "none"}}>
+				<div style={this.state.controller.current === "document" ? {display: "block"} : {display : "none"}}>
 					<Document 
-						activeTab={this.state.activeTab} 
-						annotationId={this.props.annotationId} 
-						id={this.state.id} 
-						language={this.state.language} />
+						activeTab={this.state.controller.activeTab} 
+						annotationId={this.state.controller.annotationId} 
+						id={this.state.controller.id} 
+						language={this.state.language.current} />
 				</div>
-				<div style={this.state.controller === "search" ? {display: "block"} : {display : "none"}}>
-					{this.renderFacetedSearch(this.state.language)}
+				<div style={this.state.controller.current === "search" ? {display: "block"} : {display : "none"}}>
+					{this.renderFacetedSearch(this.state.language.current)}
 				</div>
 			</div>
 		);

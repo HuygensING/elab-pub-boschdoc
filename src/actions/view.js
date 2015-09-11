@@ -1,25 +1,6 @@
 import dispatcher from "../dispatcher";
 
 let viewActions = {
-	setLanguage(lang) {
-		dispatcher.handleViewAction({
-			actionType: "LANGUAGE_TOGGLE",
-			data: lang
-		});
-	},
-
-	setController(controller, id, activeTab, annotationId) {
-		dispatcher.handleViewAction({
-			actionType: "SET_CONTROLLER",
-			data: { 
-				controller: controller,
-				id: id,
-				activeTab: activeTab,
-				annotationId: annotationId
-			}
-		})
-	},
-
 	setPages(ids, prev, next, start) {
 		dispatcher.handleViewAction({
 			actionType: "SET_PAGES",
@@ -41,3 +22,28 @@ let viewActions = {
 };
 
 export default viewActions;
+export {viewActions as actions};
+
+
+export function setLanguage(lang) {
+	return function(dispatch) {
+		dispatch({
+			type: "LANGUAGE_TOGGLE",
+			data: {current: lang}
+		})
+	};
+}
+
+export function setController(controller, id, activeTab, annotationId) {
+	return function(dispatch) {
+		dispatch({
+			type: "SET_CONTROLLER",
+			data: {
+				current: controller,
+				id: id,
+				activeTab: activeTab,
+				annotationId: annotationId
+			}
+		});
+	}
+}

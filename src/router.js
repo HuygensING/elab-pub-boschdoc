@@ -1,7 +1,7 @@
 import Router from "ampersand-router";
-import actions from "./actions/view";
-import appStore from "./stores/app";
+import {setController, setLanguage} from "./actions/view";
 import api from "./api";
+import appStore from "./app-store";
 
 let AppRouter = Router.extend({
 
@@ -15,21 +15,17 @@ let AppRouter = Router.extend({
 	},
 
 	navigateToResult: function(obj) {
-		this.navigate(appStore.getLanguage() + "/entry/" + obj.id + "/transcription");
+		this.navigate(appStore.getState().language.current + "/entry/" + obj.id + "/transcription");
 	},
 
 	search: function(lang) {
-		if(lang !== appStore.getLanguage()) { 
-			actions.setLanguage(lang || "nl"); 
-		}
-		actions.setController("search");
+		appStore.dispatch(setLanguage(lang || "nl"));
+		appStore.dispatch(setController("search"));
 	},
 
 	entry: function(lang, id, activeTab, annotationId) {
-		if(lang !== appStore.getLanguage()) { 
-			actions.setLanguage(lang || "nl"); 
-		}
-		actions.setController("document", id, activeTab, annotationId);
+		appStore.dispatch(setLanguage(lang || "nl"));
+		appStore.dispatch(setController("document", id, activeTab, annotationId));
 	}
 });
 

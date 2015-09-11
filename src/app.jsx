@@ -31,7 +31,7 @@ class AppController extends React.Component {
 	}
 
 	componentWillUnmount() {
-		appStore.stopListen(this.changeListener);
+		appStore.stopListening(this.changeListener);
 	}
 
 	onStoreChange() {

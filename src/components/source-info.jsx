@@ -24,48 +24,6 @@ class SourceInfo extends React.Component {
 		}
 		return this.renderArchival.bind(this);
 	}
-/*
-
-
->  Bij het overige materiaal (document types 'oude druk' en 'manuscript') zou
-> de volgorde moeten zijn:
-> - Auteur
-> -Titel
-> - Plaats van publicatie
-> - Jaar van publicatie
-> - Folio nummer(s) of Pagina nummer(s)​
-
->Bij het archiefmateriaal zou de volgorde
-> moeten zijn:
-> - Locatie
-> - Historische Instelling
-> - Inventaris nummer
-> - Folio nummer(s)
-
-
-
- [
- Object { field="Locatie",  value="'s-Hertogenbosch, Braban...isch Informatie Centrum"},
- Object { field="Datum",  value="1608"}, Object { field="Boekjaar",  value=""}, 
- Object { field="Historische instelling",  value=""}, 
- Object { field="Inventaris nummer",  value="14"}, 
- Object { field="Document type",  value="Manuscript"}, 
- Object { field="Folio nummer(s)",  value="10r - 10v"}, 
- Object { field="Pagina nummer(s)",  value=""}, 
- Object { field="Toegangsnummer",  value="108"}, 
- Object { field="Titel",  value="Origio opidi Buscoducensis 1184-1557"}, 
- Object { field="Auteur",  value="Balen, J. van; Everswijn, D.; Loeff, B."}, 
- Object { field="Plaats van publicatie",  value=""}, 
- Object { field="Jaar van publicatie",  value="1608"}, 
- Object { field="Persons mentioned",  value="Aken (alias Bosch), Jher...(Joen) Anthoniusz. van."}, 
- Object { field="Genoemde personen",  value="Aken (alias Bosch), Jher...(Joen) Anthoniusz. van."}, 
- Object { field="Personas Mencionadas",  value=""}, 
- Object { field="Themes",  value="Abigail and David. | Ado... Solomon and Bathsheba."}, 
- Object { field="Temas",  value=""}, 
- Object { field="Thema's",  value="Abigaïl en David. | Beth.... | Salomo en Bathseba."}
- ]
-
-*/
 
 	renderBody(filters) {
 		return this.props.metadata

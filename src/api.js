@@ -1,22 +1,10 @@
 import xhr from "xhr";
-import dispatcher from "./dispatcher";
-import serverActions from "./actions/server";
 
 export default {
 	docroot: "",
 
 	performXhr(opts, callback) {
 		xhr(opts, callback);
-	},
-
-	fetchNextResultPage(url, isPrev) {
-		let callback = isPrev ?
-			serverActions.receivePrevPages : 
-			serverActions.receiveNextPages
-		this.performXhr({
-			method: 'GET',
-			uri: url
-		}, callback);
 	},
 
 	getConfig(callback) {

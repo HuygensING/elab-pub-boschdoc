@@ -4,11 +4,10 @@ import TextLayer from "hire-textlayer";
 import Metadata from "./metadata";
 import SourceInfo from "./source-info";
 import Paginator from "./paginator";
-import actions from "../actions/document";
-import documentStore from "../stores/document";
-import pagesStore from "../stores/pages";
+import {getNextResultPage} from "../actions/view";
 import languageKeys from "../stores/i18n-keys";
 import appRouter from "../router";
+import appStore from "../app-store";
 
 
 class DocumentController extends React.Component {
@@ -21,15 +20,16 @@ class DocumentController extends React.Component {
 			nextPage: null
 		};
 		this.scrollListener = this.handleScroll.bind(this);
-		this.storeChangeListener = this.onPageStoreChange.bind(this);
 		this.initialAnnotationId = this.props.annotationId;
 	}
 
 	componentDidMount() {
 		this.onPageStoreChange();
-		pagesStore.listen(this.storeChangeListener);
-		window.addEventListener('scroll', this.scrollListener);
+		this.unsubscribe = appStore.subscribe(() =>
+			this.onPageStoreChange()
+		);
 
+		window.addEventListener('scroll', this.scrollListener);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -45,17 +45,17 @@ class DocumentController extends React.Component {
 	}
 
 	componentWillUnmount() {
-		pagesStore.stopListening(this.storeChangeListener);
+		this.unsubscribe();
 		window.removeEventListener('scroll', this.scrollListener);
 	}
 
 	onPageStoreChange(nextProps) {
 		let props = nextProps || this.props;
-		let pageState = pagesStore.getState();
+		let pageState = appStore.getState().pages;
 		let ids = pageState.ids || [];
 		let pageIndex = ids.indexOf(parseInt(props.id));
 		if(pageIndex === ids.length - 1 && pageState.next) {
-			actions.getNextResultPage(pageState.next);
+			appStore.dispatch(getNextResultPage(pageState.next));
 		}
 		
 		console.log("CURRENT PAGE INDEX", pageIndex);

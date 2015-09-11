@@ -7,6 +7,7 @@ import FacetedSearch from "hire-faceted-search-elab";
 import Document from "./components/document-controller";
 import api from "./api";
 import appStore from "./app-store";
+import {setPages} from "./actions/view";
 
 
 class AppController extends React.Component {
@@ -52,7 +53,7 @@ class AppController extends React.Component {
 		let ids = data.results.map((r) => { return r.id});
 		let prev = data._prev ? data._prev.replace("draft//api", "draft/api") : null;
 		let next = data._next ? data._next.replace("draft//api", "draft/api") : null;
-		viewActions.setPages(ids, prev, next, 0);
+		appStore.dispatch(setPages(ids, prev, next, 0));
 	}
 
 	renderFacetedSearch(lang) {

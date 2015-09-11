@@ -1,31 +1,4 @@
-import dispatcher from "../dispatcher";
 import api from "../api"
-
-
-let viewActions = {
-	
-	setPages(ids, prev, next, start) {
-		dispatcher.handleViewAction({
-			actionType: "SET_PAGES",
-			data: {
-				ids: ids,
-				prev: prev,
-				next: next,
-				start: start
-			}
-		});
-	},
-
-	pushPages(data) {
-		dispatcher.handleServerAction({
-			actionType: "NEXT_PAGES_RECEIVE",
-			data: data
-		});
-	}
-};
-
-export default viewActions;
-export {viewActions as actions};
 
 export function setPages(ids, prev, next, start) {
 	return function(dispatch) {
@@ -40,6 +13,21 @@ export function setPages(ids, prev, next, start) {
 		})
 	}
 }
+
+export function getNextResultPage(url) {
+	return function(dispatch) {
+		api.performXhr({
+			method: 'GET',
+			uri: url
+		}, function(err, resp, data) {
+			dispatch({
+				type: "NEXT_PAGES_RECEIVE",
+				data: JSON.parse(data)
+			})
+		});
+	}
+}
+	
 
 export function setLanguage(lang) {
 	return function(dispatch) {

@@ -16,39 +16,26 @@ class DocumentController extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			id: null, 
 			fixContent: false, 
-			activeTab: this.props.activeTab,
-			language: this.props.language,
 			prevPage: null,
 			nextPage: null
 		};
 		this.scrollListener = this.handleScroll.bind(this);
-		this.storeChangeListener = this.onStoreChange.bind(this);
+		this.storeChangeListener = this.onPageStoreChange.bind(this);
 		this.initialAnnotationId = this.props.annotationId;
 	}
 
 	componentDidMount() {
-		documentStore.listen(this.storeChangeListener);
+		this.onPageStoreChange();
 		pagesStore.listen(this.storeChangeListener);
 		window.addEventListener('scroll', this.scrollListener);
-		if(this.props.id) {
-			actions.getDocument(this.props.id);
-		}
+
 	}
 
-	componentWillReceiveProps(newProps) {
-		if(newProps.id && newProps.id !== this.props.id) {
-			actions.getDocument(newProps.id);
-		}
-		if(newProps.language !== this.state.language) {
-			this.setState({language: newProps.language});
-		}
-
-		if(newProps.activeTab !== this.state.activeTab) {
-			this.setState({activeTab: newProps.activeTab});
-		}
+	componentWillReceiveProps(nextProps) {
+		this.onPageStoreChange(nextProps);
 	}
+
 
 	componentDidUpdate() {
 		if(this.initialAnnotationId) {
@@ -58,18 +45,15 @@ class DocumentController extends React.Component {
 	}
 
 	componentWillUnmount() {
-		documentStore.stopListening(this.storeChangeListener);
 		pagesStore.stopListening(this.storeChangeListener);
 		window.removeEventListener('scroll', this.scrollListener);
 	}
 
-	onStoreChange() {
-		let state = documentStore.getState();
+	onPageStoreChange(nextProps) {
+		let props = nextProps || this.props;
 		let pageState = pagesStore.getState();
-
 		let ids = pageState.ids || [];
-		let pageIndex = ids.indexOf((state || {}).id);
-
+		let pageIndex = ids.indexOf(parseInt(props.id));
 		if(pageIndex === ids.length - 1 && pageState.next) {
 			actions.getNextResultPage(pageState.next);
 		}
@@ -77,11 +61,6 @@ class DocumentController extends React.Component {
 		console.log("CURRENT PAGE INDEX", pageIndex);
 
 		this.setState({
-			id: state.id,
-			name: state.name,
-			facsimiles: state.facsimiles,
-			paralleltexts: state.paralleltexts,
-			metadata: state.metadata,
 			nextPage: pageIndex > -1 ? ids[pageIndex + 1] || null : null,
 			prevPage: pageIndex > -1 ? ids[pageIndex - 1] || null : null
 		});
@@ -99,21 +78,17 @@ class DocumentController extends React.Component {
 		window.scrollTo(0, 0);
 		switch(index) {
 			case 1:
-				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/translation");
-				this.setState({activeTab: "translation"});
+				appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/translation");
 				break;
 			case 2:
-				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/remarks");
-				this.setState({activeTab: "remarks"});
+				appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/remarks");
 				break;
 			case 3:
-				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/metadata");
-				this.setState({activeTab: "metadata"});
+				appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/metadata");
 				break;
 			case 0:
 			default:
-				appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/transcription");
-				this.setState({activeTab: "transcription"});
+				appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/transcription");
 		}
 	}
 
@@ -126,14 +101,14 @@ class DocumentController extends React.Component {
 				window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
 			}, 50);
 		}
-		appRouter.navigate(this.state.language + "/entry/" + this.state.id + "/" + this.state.activeTab + "/" + annotatedText.getAttribute("id"), {replace: true});
+		appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/" + this.props.activeTab + "/" + annotatedText.getAttribute("id"), {replace: true});
 	}
 
 	renderTextLayer(key, lang) {
 		let keys = languageKeys[lang];
-		return this.state.paralleltexts[keys[key]] ? (
+		return this.props.data.paralleltexts[keys[key]] ? (
 			<TextLayer 
-				data={this.state.paralleltexts[keys[key]]}
+				data={this.props.data.paralleltexts[keys[key]]}
 				label="" 
 				onAnnotationClick={this.onAnnotationClick.bind(this)}
 				onNavigation={this.navigateToEntry.bind(this)} 
@@ -146,7 +121,7 @@ class DocumentController extends React.Component {
 	}
 
 	onSearchClick() {
-		appRouter.navigate("/" + this.state.language + "/search");
+		appRouter.navigate("/" + this.props.language + "/search");
 	}
 
 	onNextClick() {
@@ -161,56 +136,52 @@ class DocumentController extends React.Component {
 		let keys = languageKeys[lang];
 		return (
 			<Tabs onChange={this.handleTabChange.bind(this)}>
-				<Tab active={this.state.activeTab === "transcription"} label={keys["transcription"]}>
+				<Tab active={this.props.activeTab === "transcription"} label={keys["transcription"]}>
 					{this.renderTextLayer("transcription", lang)}
 				</Tab>
-				<Tab active={this.state.activeTab === "translation"} label={keys["translation"]}>
+				<Tab active={this.props.activeTab === "translation"} label={keys["translation"]}>
 					{this.renderTextLayer("translation", lang)}
 				</Tab>
-				<Tab active={this.state.activeTab === "remarks"} label={keys["remarks"]}>
+				<Tab active={this.props.activeTab === "remarks"} label={keys["remarks"]}>
 					{this.renderTextLayer("remarks", lang)}
 				</Tab>
-				<Tab active={this.state.activeTab === "metadata"} label={keys["metadata"]}>
-					<Metadata language={lang} metadata={this.state.metadata}  />
+				<Tab active={this.props.activeTab === "metadata"} label={keys["metadata"]}>
+					<Metadata language={lang} metadata={this.props.data.metadata}  />
 				</Tab>
 			</Tabs>
 		);
 	}
 
 	render() {
-		if(this.state.id === null) {
-			return (<div />)
-		} else {
-			let facs = this.state.facsimiles.length > 0 ?
-				(<iframe key={this.state.facsimiles[0].title} src={this.state.facsimiles[0].zoom}></iframe>) :
-				"no facsimile";
+		let facs = this.props.data.facsimiles.length > 0 ?
+			(<iframe key={this.props.data.facsimiles[0].title} src={this.props.data.facsimiles[0].zoom}></iframe>) :
+			"no facsimile";
 
-			return (
-				<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
-					<Paginator 
-						labels={languageKeys[this.state.language].pagination}
-						onNextClick={this.state.nextPage ? this.onNextClick.bind(this) : null} 
-						onPrevClick={this.state.prevPage ? this.onPrevClick.bind(this) : null} 
-						onSearchClick={this.onSearchClick.bind(this)} 
-						/>
-					<h2>{this.state.name}</h2>
-					<SourceInfo metadata={this.state.metadata}  />
+		return (
+			<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
+				<Paginator 
+					labels={languageKeys[this.props.language].pagination}
+					onNextClick={this.state.nextPage ? this.onNextClick.bind(this) : null} 
+					onPrevClick={this.state.prevPage ? this.onPrevClick.bind(this) : null} 
+					onSearchClick={this.onSearchClick.bind(this)} 
+					/>
+				<h2>{this.props.data.name}</h2>
+				<SourceInfo metadata={this.props.data.metadata}  />
 
-					<div className="facsimile">
-						{facs}
-					</div>
-					<div className="text" style={{display: this.state.language === "nl" ? "block" : "none"}}>
-						{this.renderTabs("nl")}
-					</div>
-					<div className="text" style={{display: this.state.language === "en" ? "block" : "none"}}>
-						{this.renderTabs("en")}
-					</div>
-					<div className="text" style={{display: this.state.language === "es" ? "block" : "none"}}>
-						{this.renderTabs("es")}
-					</div>
-				</article>
-			)
-		}
+				<div className="facsimile">
+					{facs}
+				</div>
+				<div className="text" style={{display: this.props.language === "nl" ? "block" : "none"}}>
+					{this.renderTabs("nl")}
+				</div>
+				<div className="text" style={{display: this.props.language === "en" ? "block" : "none"}}>
+					{this.renderTabs("en")}
+				</div>
+				<div className="text" style={{display: this.props.language === "es" ? "block" : "none"}}>
+					{this.renderTabs("es")}
+				</div>
+			</article>
+		);
 	}
 }
 
@@ -218,12 +189,14 @@ class DocumentController extends React.Component {
 DocumentController.propTypes = {
 	activeTab: React.PropTypes.string,
 	annotationId: React.PropTypes.string,
+	data: React.PropTypes.object,
 	id: React.PropTypes.string,
 	language: React.PropTypes.string
 };
 
 DocumentController.defaultProps = {
-	activeTab: "transcription"
+	activeTab: "transcription",
+	language: "nl"
 }
 
 export default DocumentController;

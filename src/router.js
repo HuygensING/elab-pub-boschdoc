@@ -19,12 +19,16 @@ let AppRouter = Router.extend({
 	},
 
 	search: function(lang) {
-		appStore.dispatch(setLanguage(lang || "nl"));
+		if(lang !== appStore.getState().language.current) {
+			appStore.dispatch(setLanguage(lang || localStorage.getItem("lang") || "nl"));
+		}
 		appStore.dispatch(setController("search"));
 	},
 
 	entry: function(lang, id, activeTab, annotationId) {
-		appStore.dispatch(setLanguage(lang || "nl"));
+		if(lang !== appStore.getState().language.current) {
+			appStore.dispatch(setLanguage(lang || localStorage.getItem("lang") ||  "nl"));
+		}
 		appStore.dispatch(setController("document", id, activeTab, annotationId));
 	}
 });

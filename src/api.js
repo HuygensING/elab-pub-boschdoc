@@ -9,13 +9,6 @@ export default {
 		xhr(opts, callback);
 	},
 
-	getDocument(id) {
-		this.performXhr({
-			method: 'GET',
-			uri: this.docroot + '/data/' + id + '.json'
-		}, serverActions.receiveDocument);
-	},
-
 	fetchNextResultPage(url, isPrev) {
 		let callback = isPrev ?
 			serverActions.receivePrevPages : 

@@ -73,6 +73,16 @@ class AppController extends React.Component {
 
 
 	render() {
+		console.log("RERENDER", this.state.controller);
+		let doc = this.state.controller.id ?
+			<Document 
+					activeTab={this.state.controller.activeTab} 
+					annotationId={this.state.controller.annotationId} 
+					data={this.state.controller.data}
+					id={this.state.controller.id} 
+					language={this.state.language.current} /> :
+			null;
+
 		return (
 			<div className="app">
 				<header>
@@ -95,11 +105,7 @@ class AppController extends React.Component {
 					</nav>
 				</header>
 				<div style={this.state.controller.current === "document" ? {display: "block"} : {display : "none"}}>
-					<Document 
-						activeTab={this.state.controller.activeTab} 
-						annotationId={this.state.controller.annotationId} 
-						id={this.state.controller.id} 
-						language={this.state.language.current} />
+					{doc}					
 				</div>
 				<div style={this.state.controller.current === "search" ? {display: "block"} : {display : "none"}}>
 					{this.renderFacetedSearch(this.state.language.current)}

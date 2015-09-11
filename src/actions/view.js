@@ -31,6 +31,7 @@ export function getNextResultPage(url) {
 
 export function setLanguage(lang) {
 	return function(dispatch) {
+		localStorage.setItem("lang", lang);
 		dispatch({
 			type: "LANGUAGE_TOGGLE",
 			data: {current: lang}

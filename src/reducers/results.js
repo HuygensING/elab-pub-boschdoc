@@ -1,7 +1,8 @@
 let initialState = {
 	ids: [],
-	next: null,
-	prev: null,
+	results: [],
+	_next: null,
+	_prev: null,
 	loadedStartIndices: []
 };
 
@@ -10,14 +11,14 @@ let pushPages = function(state, data) {
 		let newIds = data.results.map(res => res.id);
 		state.ids = state.ids.concat(data.results.map(res => res.id));
 		if(data._next) {
-			state.next = data._next.replace("draft//api", "draft/api");
+			state._next = data._next.replace("draft//api", "draft/api");
 		} else {
-			state.next = null
+			state._next = null
 		}
 		if(data._prev) {
-			state.prev = data._prev.replace("draft//api", "draft/api");
+			state._prev = data._prev.replace("draft//api", "draft/api");
 		} else {
-			state.prev = null;
+			state._prev = null;
 		}
 		state.loadedStartIndices.push(data.start);
 	}
@@ -26,7 +27,7 @@ let pushPages = function(state, data) {
 
 export default function(state=initialState, action) {
 	switch (action.type) {
-		case "SET_PAGES":
+		case "SET_RESULTS":
 			return {...state, ...action.data, loadedStartIndices: [action.data.start]};
 		case "NEXT_PAGES_RECEIVE":
 			return pushPages(state, action.data);

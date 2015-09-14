@@ -1,16 +1,14 @@
 import api from "../api"
 
-export function setPages(ids, prev, next, start) {
+export function setResults(results) {
+	results._next = results._next ? results._next.replace("draft//api", "draft/api") : null;
+	results._prev = results._prev ? results._prev.replace("draft//api", "draft/api") : null;
+	results.ids = results.results.map((r) => { return r.id});
 	return function(dispatch) {
 		dispatch({
-			type: "SET_PAGES",
-			data: {
-				ids: ids,
-				prev: prev,
-				next: next,
-				start: start
-			}
-		})
+			type: "SET_RESULTS",
+			data: results
+		});
 	}
 }
 
@@ -27,7 +25,7 @@ export function getNextResultPage(url) {
 		});
 	}
 }
-	
+
 
 export function setLanguage(lang) {
 	return function(dispatch) {

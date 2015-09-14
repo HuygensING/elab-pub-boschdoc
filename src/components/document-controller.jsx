@@ -51,11 +51,11 @@ class DocumentController extends React.Component {
 
 	onPageStoreChange(nextProps) {
 		let props = nextProps || this.props;
-		let pageState = appStore.getState().pages;
+		let pageState = appStore.getState().results;
 		let ids = pageState.ids || [];
 		let pageIndex = ids.indexOf(parseInt(props.id));
-		if(pageIndex === ids.length - 1 && pageState.next) {
-			appStore.dispatch(getNextResultPage(pageState.next));
+		if(pageIndex === ids.length - 1 && pageState._next) {
+			appStore.dispatch(getNextResultPage(pageState._next));
 		}
 		
 		console.log("CURRENT PAGE INDEX", pageIndex);

@@ -2,10 +2,10 @@ import {combineReducers} from "redux";
 
 import controller from "./controller";
 import language from "./language";
-import pages from "./pages";
+import results from "./results";
 
 export default combineReducers({
 	controller: controller,
 	language: language,
-	pages: pages
+	results: results
 });

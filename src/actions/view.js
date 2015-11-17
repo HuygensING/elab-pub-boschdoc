@@ -1,29 +1,29 @@
-import api from "../api"
+import api from "../api";
 
 export function setResults(results) {
 	results._next = results._next ? results._next.replace("draft//api", "draft/api") : null;
 	results._prev = results._prev ? results._prev.replace("draft//api", "draft/api") : null;
-	results.ids = results.results.map((r) => { return r.id});
+	results.ids = results.results.map((r) => { return r.id; });
 	return function(dispatch) {
 		dispatch({
 			type: "SET_RESULTS",
 			data: results
 		});
-	}
+	};
 }
 
 export function getNextResultPage(url) {
 	return function(dispatch) {
 		api.performXhr({
-			method: 'GET',
+			method: "GET",
 			uri: url
 		}, function(err, resp, data) {
 			dispatch({
 				type: "NEXT_PAGES_RECEIVE",
 				data: JSON.parse(data)
-			})
+			});
 		});
-	}
+	};
 }
 
 
@@ -33,7 +33,7 @@ export function setLanguage(lang) {
 		dispatch({
 			type: "LANGUAGE_TOGGLE",
 			data: {current: lang}
-		})
+		});
 	};
 }
 
@@ -55,8 +55,8 @@ export function setController(controller, id, activeTab, annotationId) {
 				});
 			} else {
 				api.performXhr({
-					method: 'GET',
-					uri: api.docroot + '/data/' + id + '.json'
+					method: "GET",
+					uri: api.docroot + "/data/" + id + ".json"
 				}, function(err, resp, data) {
 					cached[id] = JSON.parse(data);
 					dispatch({
@@ -68,7 +68,7 @@ export function setController(controller, id, activeTab, annotationId) {
 							annotationId: annotationId,
 							data: JSON.parse(data)
 						}
-					})
+					});
 				});
 			}
 
@@ -82,7 +82,7 @@ export function setController(controller, id, activeTab, annotationId) {
 					annotationId: annotationId,
 					data: {}
 				}
-			})		
+			});
 		}
-	}
+	};
 }

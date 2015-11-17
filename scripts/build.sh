@@ -8,10 +8,7 @@
 
 
 
-INDEX_FILE=deploy.jsx
-if [ $LOCAL_ENV = "dev" ]; then
-	INDEX_FILE=index.jsx
-fi
+INDEX_FILE=index.jsx
 
 # Build React JS
 node_modules/.bin/browserify src/$INDEX_FILE \

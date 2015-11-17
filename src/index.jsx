@@ -3,10 +3,9 @@ import appRouter from "./router";
 import api from "./api";
 import App from "./app";
 
+const ROOT = "/draft";
 
-//const ROOT = "/elaborate/publication/boschdoc/development";
-
-const ROOT = "/";
+api.docroot = ROOT;
 
 appRouter.history.start({
 	root: ROOT

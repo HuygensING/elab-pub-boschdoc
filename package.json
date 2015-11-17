@@ -21,6 +21,7 @@
     "hire-faceted-search-elab": "^2.1.1",
     "lodash.debounce": "^3.1.1",
     "nib": "~1.1.0",
+    "proxy-middleware": "^0.15.0",
     "react": "^0.13.3",
     "stylus": "~0.52.0",
     "watchify": "~3.3.1"

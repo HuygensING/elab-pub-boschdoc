@@ -40,7 +40,9 @@ class SourceInfo extends React.Component {
 	}
 
 	renderArchival() {
-		return this.renderBody(["Locatie", "Historische instelling", "Inventaris nummer", "Folio nummer(s)"]);
+		return this.props.metadata
+			.filter((md) => md.field === "ISIL")
+			.map((md) => md.value)[0] || this.renderBody(["Locatie", "Historische instelling", "Inventaris nummer", "Folio nummer(s)"]);
 	}
 
 	render() {

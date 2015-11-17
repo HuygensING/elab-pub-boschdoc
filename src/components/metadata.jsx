@@ -21,7 +21,7 @@ class Metadata extends React.Component {
 	render() {
 		return (
 			<ul className="metadata">
-				{this.props.metadata.filter(entry => entry.value !== "" && this.metadataKeys.indexOf(entry.field) > -1).map(this.renderMetadataField.bind(this))}
+				{this.props.metadata.filter((entry) => entry.field !== "ISIL" && entry.value !== "" && this.metadataKeys.indexOf(entry.field) > -1).map(this.renderMetadataField.bind(this))}
 			</ul>
 		);
 	}

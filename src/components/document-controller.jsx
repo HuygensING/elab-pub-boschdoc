@@ -15,7 +15,7 @@ class DocumentController extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			fixContent: false, 
+			fixContent: false,
 			prevPage: null,
 			nextPage: null
 		};
@@ -29,7 +29,7 @@ class DocumentController extends React.Component {
 			this.onPageStoreChange()
 		);
 
-		window.addEventListener('scroll', this.scrollListener);
+		window.addEventListener("scroll", this.scrollListener);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -46,7 +46,7 @@ class DocumentController extends React.Component {
 
 	componentWillUnmount() {
 		this.unsubscribe();
-		window.removeEventListener('scroll', this.scrollListener);
+		window.removeEventListener("scroll", this.scrollListener);
 	}
 
 	onPageStoreChange(nextProps) {
@@ -57,7 +57,7 @@ class DocumentController extends React.Component {
 		if(pageIndex === ids.length - 1 && pageState._next) {
 			appStore.dispatch(getNextResultPage(pageState._next));
 		}
-		
+
 		console.log("CURRENT PAGE INDEX", pageIndex);
 
 		this.setState({
@@ -65,8 +65,8 @@ class DocumentController extends React.Component {
 			prevPage: pageIndex > -1 ? ids[pageIndex - 1] || null : null
 		});
 	}
-	
-	handleScroll(ev) {
+
+	handleScroll() {
 		if(window.pageYOffset > document.getElementsByTagName("header")[0].offsetHeight) {
 			if(!this.state.fixContent) { this.setState({fixContent: true}); }
 		} else {
@@ -107,17 +107,17 @@ class DocumentController extends React.Component {
 	renderTextLayer(key, lang) {
 		let keys = languageKeys[lang];
 		return this.props.data.paralleltexts[keys[key]] ? (
-			<TextLayer 
+			<TextLayer
 				data={this.props.data.paralleltexts[keys[key]]}
-				label="" 
+				label=""
 				onAnnotationClick={this.onAnnotationClick.bind(this)}
-				onNavigation={this.navigateToEntry.bind(this)} 
+				onNavigation={this.navigateToEntry.bind(this)}
 				relatedAnnotationLabel={this.state.relatedAnnotationLabel} />
 		) : null;
 	}
 
 	navigateToEntry(id) {
-		appRouter.navigateToResult({id: id})
+		appRouter.navigateToResult({id: id});
 	}
 
 	onSearchClick() {
@@ -136,17 +136,17 @@ class DocumentController extends React.Component {
 		let keys = languageKeys[lang];
 		return (
 			<Tabs onChange={this.handleTabChange.bind(this)}>
-				<Tab active={this.props.activeTab === "transcription"} label={keys["transcription"]}>
+				<Tab active={this.props.activeTab === "transcription"} label={keys.transcription}>
 					{this.renderTextLayer("transcription", lang)}
 				</Tab>
-				<Tab active={this.props.activeTab === "translation"} label={keys["translation"]}>
+				<Tab active={this.props.activeTab === "translation"} label={keys.translation}>
 					{this.renderTextLayer("translation", lang)}
 				</Tab>
-				<Tab active={this.props.activeTab === "remarks"} label={keys["remarks"]}>
+				<Tab active={this.props.activeTab === "remarks"} label={keys.remarks}>
 					{this.renderTextLayer("remarks", lang)}
 				</Tab>
-				<Tab active={this.props.activeTab === "metadata"} label={keys["metadata"]}>
-					<Metadata language={lang} metadata={this.props.data.metadata}  />
+				<Tab active={this.props.activeTab === "metadata"} label={keys.metadata}>
+					<Metadata language={lang} metadata={this.props.data.metadata} />
 				</Tab>
 			</Tabs>
 		);
@@ -159,14 +159,14 @@ class DocumentController extends React.Component {
 
 		return (
 			<article className={"entry" + (this.state.fixContent ? " fixed-content" : "")}>
-				<Paginator 
+				<Paginator
 					labels={languageKeys[this.props.language].pagination}
-					onNextClick={this.state.nextPage ? this.onNextClick.bind(this) : null} 
-					onPrevClick={this.state.prevPage ? this.onPrevClick.bind(this) : null} 
-					onSearchClick={this.onSearchClick.bind(this)} 
+					onNextClick={this.state.nextPage ? this.onNextClick.bind(this) : null}
+					onPrevClick={this.state.prevPage ? this.onPrevClick.bind(this) : null}
+					onSearchClick={this.onSearchClick.bind(this)}
 					/>
 				<h2>{this.props.data.name}</h2>
-				<SourceInfo metadata={this.props.data.metadata}  />
+				<SourceInfo metadata={this.props.data.metadata} />
 
 				<div className="facsimile">
 					{facs}
@@ -197,6 +197,6 @@ DocumentController.propTypes = {
 DocumentController.defaultProps = {
 	activeTab: "transcription",
 	language: "nl"
-}
+};
 
 export default DocumentController;

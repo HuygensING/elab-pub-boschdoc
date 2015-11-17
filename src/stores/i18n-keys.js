@@ -29,7 +29,7 @@ export default {
 		pagination: {
 			search: "Zoeken",
 			previous: "Vorige",
-			next: "Volgende"			
+			next: "Volgende"
 		},
 		"resultsFound": "resultaten",
 		"sortBy": "Sorteren op",

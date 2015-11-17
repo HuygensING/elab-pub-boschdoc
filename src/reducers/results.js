@@ -8,12 +8,11 @@ let initialState = {
 
 let pushPages = function(state, data) {
 	if(state.loadedStartIndices.indexOf(data.start) < 0) {
-		let newIds = data.results.map(res => res.id);
 		state.ids = state.ids.concat(data.results.map(res => res.id));
 		if(data._next) {
 			state._next = data._next.replace("draft//api", "draft/api");
 		} else {
-			state._next = null
+			state._next = null;
 		}
 		if(data._prev) {
 			state._prev = data._prev.replace("draft//api", "draft/api");

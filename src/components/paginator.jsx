@@ -24,7 +24,7 @@ class Paginator extends React.Component {
 			</ul>
 		);
 	}
-};
+}
 
 Paginator.propTypes = {
 	labels: React.PropTypes.object,

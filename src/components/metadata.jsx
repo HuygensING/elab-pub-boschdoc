@@ -6,7 +6,7 @@ class Metadata extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.metadataKeys = new LanguageFilter(this.props.language, this.props.metadata.map(function(entry) { return entry.field}));
+		this.metadataKeys = new LanguageFilter(this.props.language, this.props.metadata.map((entry) => entry.field));
 	}
 
 	renderMetadataField(entry, i) {
@@ -29,7 +29,7 @@ class Metadata extends React.Component {
 
 Metadata.propTypes = {
 	language: React.PropTypes.string,
-	metadata: React.PropTypes.array,
+	metadata: React.PropTypes.array
 };
 
 

@@ -10,7 +10,7 @@ function applyFilter(value) {
 
 function Filter(lang, list) {
 	this.filters = FILTERS[lang];
-	return list.filter(applyFilter.bind(this))
+	return list.filter(applyFilter.bind(this));
 }
 
 export default Filter;

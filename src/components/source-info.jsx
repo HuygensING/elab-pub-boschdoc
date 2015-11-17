@@ -19,7 +19,7 @@ class SourceInfo extends React.Component {
 		for(let i in metadata) {
 			let md = metadata[i];
 			if(md.field === "Document type" && this.manuscriptTypes.indexOf(md.value) > -1) {
-				return this.renderManuscript.bind(this)
+				return this.renderManuscript.bind(this);
 			}
 		}
 		return this.renderArchival.bind(this);
@@ -28,7 +28,7 @@ class SourceInfo extends React.Component {
 	renderBody(filters) {
 		return this.props.metadata
 			.filter(md => filters.indexOf(md.field) > -1)
-			.sort(function(a, b) { return filters.indexOf(a.field) > filters.indexOf(b.field) })
+			.sort(function(a, b) { return filters.indexOf(a.field) > filters.indexOf(b.field); })
 			.map(md => md.value)
 			.filter(val => val !== "")
 			.join(" ; ");
@@ -53,7 +53,7 @@ class SourceInfo extends React.Component {
 }
 
 SourceInfo.propTypes = {
-	metadata: React.PropTypes.array,
+	metadata: React.PropTypes.array
 };
 
 

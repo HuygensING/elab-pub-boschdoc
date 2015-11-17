@@ -1,11 +1,9 @@
 import React from "react";
 import appRouter from "./router";
-import viewActions from "./actions/view";
 import languageKeys from "./stores/i18n-keys";
 import LanguageFilter from "./stores/i18n-filter";
 import FacetedSearch from "hire-faceted-search-elab";
 import Document from "./components/document-controller";
-import api from "./api";
 import appStore from "./app-store";
 import {setResults} from "./actions/view";
 
@@ -20,8 +18,10 @@ class AppController extends React.Component {
 		};
 	}
 
+	/* eslint react/no-did-mount-set-state: 0 */
 	componentDidMount() {
 		this.unsubscribe = appStore.subscribe(() =>
+			// This is not a call to setState in componentDidMount by in the appStore subscription
 			this.setState(appStore.getState())
 		);
 	}
@@ -31,7 +31,7 @@ class AppController extends React.Component {
 	}
 
 
-	navigateHome(ev) {
+	navigateHome() {
 		appRouter.navigate("/" + this.state.language.current + "/search");
 	}
 
@@ -39,7 +39,7 @@ class AppController extends React.Component {
 		if( appRouter.history.fragment === "") {
 			appRouter.navigate(ev.target.getAttribute("data-lang"));
 		} else {
-			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute('data-lang'));
+			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute("data-lang"));
 			appRouter.navigate(path);
 		}
 	}
@@ -58,10 +58,10 @@ class AppController extends React.Component {
 
 		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
 		this.cachedViews.search[lang] = (
-			<FacetedSearch 
-				config={this.props.config} 
+			<FacetedSearch
+				config={this.props.config}
 				facetList={facetList}
-				labels={languageKeys[lang]} 
+				labels={languageKeys[lang]}
 				onChange={this.onResultsChange.bind(this)}
 				onSelect={this.navigateToResult.bind(this)}	 />
 		);
@@ -75,14 +75,14 @@ class AppController extends React.Component {
 
 	render() {
 		let doc = this.state.controller.id ?
-			<Document 
-					activeTab={this.state.controller.activeTab} 
-					annotationId={this.state.controller.annotationId} 
+			<Document
+					activeTab={this.state.controller.activeTab}
+					annotationId={this.state.controller.annotationId}
 					data={this.state.controller.data}
-					id={this.state.controller.id} 
+					id={this.state.controller.id}
 					language={this.state.language.current}
 					pages={this.state.results}
-					 /> :
+					/> :
 			null;
 
 		return (
@@ -105,10 +105,10 @@ class AppController extends React.Component {
 						</a>
 					</nav>
 				</header>
-				<div style={this.state.controller.current === "document" ? {display: "block"} : {display : "none"}}>
-					{doc}					
+				<div style={this.state.controller.current === "document" ? {display: "block"} : {display: "none"}}>
+					{doc}
 				</div>
-				<div style={this.state.controller.current === "search" ? {display: "block"} : {display : "none"}}>
+				<div style={this.state.controller.current === "search" ? {display: "block"} : {display: "none"}}>
 					{this.renderFacetedSearch(this.state.language.current)}
 				</div>
 			</div>
@@ -123,7 +123,7 @@ AppController.propTypes = {
 	controller: React.PropTypes.string,
 	id: React.PropTypes.string,
 	language: React.PropTypes.string
-}
+};
 
 
 export default AppController;

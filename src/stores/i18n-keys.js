@@ -101,13 +101,13 @@ export default {
 			"Thema's": "Thema's"
 		},
 		pagination: {
-			search: "[ES: search]",
-			previous: "[ES: previous]",
-			next: "[ES: next]"
+			search: "Buscar",
+			previous: "Anterior",
+			next: "Siguiente"
 		},
-		"resultsFound": "[ES: results]",
-		"sortBy": "[ES: Sort by]",
-		"showAll": "[ES: Show all]",
-		"newSearch": "[ES: new search]"
+		"resultsFound": "Resultados",
+		"sortBy": "Seleccionar por",
+		"showAll": "Todo",
+		"newSearch": "Nueva Búsqueda"
 	}
 };

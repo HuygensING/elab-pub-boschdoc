@@ -9,10 +9,10 @@ export default {
 
 	getConfig(callback) {
 		this.performXhr({
-			method: 'GET',
-			uri: this.docroot + '/data/config.json'
+			method: "GET",
+			uri: this.docroot + "/data/config.json"
 		}, function(err, resp, body) {
-			callback(JSON.parse(body))
+			callback(JSON.parse(body));
 		});
 	}
 };

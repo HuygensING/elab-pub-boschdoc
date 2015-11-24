@@ -15,5 +15,17 @@ appRouter.history.start({
 api.getConfig((config) => {
 	let [lang, controller, id, activeTab, annotationId] = appRouter.history.fragment.split("/");
 	if(controller === "entry") { controller = "document"; }
-	React.render(<App activeTab={activeTab || "transcription"} annotationId={annotationId} config={config} controller={controller} id={id} language={lang} />, document.body);
+	let presetThemes = appRouter.history.fragment.match(/\?themes=/) ?
+		appRouter.history.fragment.replace(/.*\?themes=/, "").split("|") :
+		null;
+
+	React.render(
+		<App
+			activeTab={activeTab || "transcription"}
+			annotationId={annotationId} config={config}
+			controller={controller}
+			id={id} language={lang}
+			presetThemes={presetThemes}
+		/>, document.body
+	);
 });

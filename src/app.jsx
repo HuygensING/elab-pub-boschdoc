@@ -16,6 +16,8 @@ class AppController extends React.Component {
 		this.cachedViews = {
 			search: {}
 		};
+		this.themesSet = false;
+		this.themeQuerySet = false;
 	}
 
 	/* eslint react/no-did-mount-set-state: 0 */
@@ -50,11 +52,16 @@ class AppController extends React.Component {
 	}
 
 	onResultsChange(data) {
+		if(this.props.presetThemes && !this.themesSet) {
+			appStore.dispatch({type: "SET_THEMES", themes: this.props.presetThemes});
+			this.themesSet = true;
+		}
 		appStore.dispatch(setResults(data));
 	}
 
 	renderFacetedSearch(lang) {
-		if(this.cachedViews.search[lang]) { return this.cachedViews.search[lang]; }
+		if(this.cachedViews.search[lang] && (!this.state.controller.query || this.themeQuerySet)) { return this.cachedViews.search[lang]; }
+		if(this.state.controller.query) { this.themeQuerySet = true; }
 
 		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
 		this.cachedViews.search[lang] = (
@@ -63,7 +70,8 @@ class AppController extends React.Component {
 				facetList={facetList}
 				labels={languageKeys[lang]}
 				onChange={this.onResultsChange.bind(this)}
-				onSelect={this.navigateToResult.bind(this)}	 />
+				onSelect={this.navigateToResult.bind(this)}
+				query={this.state.controller.query} />
 		);
 
 		return this.cachedViews.search[lang];
@@ -127,7 +135,8 @@ AppController.propTypes = {
 	config: React.PropTypes.object,
 	controller: React.PropTypes.string,
 	id: React.PropTypes.string,
-	language: React.PropTypes.string
+	language: React.PropTypes.string,
+	presetThemes: React.PropTypes.array
 };
 
 

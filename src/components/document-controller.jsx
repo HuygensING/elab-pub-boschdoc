@@ -19,7 +19,6 @@ class DocumentController extends React.Component {
 			prevPage: null,
 			nextPage: null
 		};
-		this.scrollListener = this.handleScroll.bind(this);
 		this.initialAnnotationId = this.props.annotationId;
 	}
 
@@ -28,8 +27,6 @@ class DocumentController extends React.Component {
 		this.unsubscribe = appStore.subscribe(() =>
 			this.onPageStoreChange()
 		);
-
-		window.addEventListener("scroll", this.scrollListener);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -46,7 +43,6 @@ class DocumentController extends React.Component {
 
 	componentWillUnmount() {
 		this.unsubscribe();
-		window.removeEventListener("scroll", this.scrollListener);
 	}
 
 	onPageStoreChange(nextProps) {
@@ -66,16 +62,7 @@ class DocumentController extends React.Component {
 		});
 	}
 
-	handleScroll() {
-		if(window.pageYOffset > document.getElementsByTagName("header")[0].offsetHeight) {
-			if(!this.state.fixContent) { this.setState({fixContent: true}); }
-		} else {
-			if(this.state.fixContent) { this.setState({fixContent: false}); }
-		}
-	}
-
 	handleTabChange(label, index) {
-		window.scrollTo(0, 0);
 		switch(index) {
 			case 1:
 				appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/translation");
@@ -93,14 +80,6 @@ class DocumentController extends React.Component {
 	}
 
 	onAnnotationClick(annotatedText) {
-		if(this.state.fixContent) {
-			window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
-		} else {
-			window.scrollTo(0, document.getElementsByTagName("header")[0].offsetHeight + 1);
-			window.setTimeout(function() {
-				window.scrollTo(0, window.scrollY + annotatedText.getBoundingClientRect().top - 106);
-			}, 50);
-		}
 		appRouter.navigate(this.props.language + "/entry/" + this.props.id + "/" + this.props.activeTab + "/" + annotatedText.getAttribute("id"), {replace: true});
 	}
 
@@ -165,7 +144,7 @@ class DocumentController extends React.Component {
 					onPrevClick={this.state.prevPage ? this.onPrevClick.bind(this) : null}
 					onSearchClick={this.onSearchClick.bind(this)}
 					/>
-				<h2>{this.props.data.name}</h2>
+				<h2 title={this.props.data.name}>{this.props.data.name}</h2>
 				<SourceInfo metadata={this.props.data.metadata} />
 
 				<div className="facsimile">

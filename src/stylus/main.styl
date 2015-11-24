@@ -12,6 +12,7 @@ html, body
 	font-weight 300
 	line-height 1.5em
 	color #333
+	height 100%
 
 html 
 	box-sizing border-box
@@ -57,6 +58,11 @@ h2
 .entry > h2
 	margin 0
 	font-size 18px
+	max-width calc(100% - 250px)
+	height 24px
+	overflow hidden
+	white-space nowrap
+	text-overflow ellipsis
 
 .app > header
 	height 80px
@@ -85,6 +91,7 @@ h2
 .hire-paginator
 	float right
 
+
 .hire-tabs > ul li,
 .hire-paginator li,
 .hire-faceted-search > .hire-faceted-search-facets > button
@@ -109,6 +116,31 @@ h2
 	color #333
 	background-color #fff
 	font-style italic
+
+
+body.document
+	height 100%
+	overflow hidden
+
+.app.document
+	height 100%
+
+div.entry-wrapper
+	height calc(100% - 80px)
+
+article.entry,
+article > div.text,
+article > div.text > .hire-tabs
+	height 100%
+
+
+article > div.text > .hire-tabs > .hire-tab
+	height calc(100% - 132px)
+
+article > div.text > .hire-tabs > .hire-tab > div,
+article > div.text > .hire-tabs > .hire-tab > ul
+	height 100%
+	overflow-y auto
 
 article.entry
 	margin-top 20px
@@ -150,9 +182,6 @@ article.entry.fixed-content > h2
 	width 100%
 	background-color rgb(255,255,255)
 	z-index 2
-
-
-
 
 .hi-textlayer > div
 	font-family: 'Merriweather', serif

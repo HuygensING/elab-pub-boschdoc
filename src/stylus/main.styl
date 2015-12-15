@@ -71,6 +71,38 @@ h2
 .app > header > a > img
 	float left
 
+.app > header > .logo-wrap
+	display inline-block
+	text-align center
+	width calc(100% - 450px)
+
+.app > header img.radboud
+	position relative
+	top 3px
+	margin-left 30px
+
+.app > header img.sbosch
+	position relative
+	top 4px
+
+.app > header img.sbosch-small,
+.app > header img.radboud-small
+	display none
+
+@media screen and (max-width: 1100px)
+	.app > header img.sbosch-small,
+	.app > header img.radboud-small
+		display inline
+
+	.app > header img.radboud-small
+		margin-left 30px
+
+
+	.app > header img.sbosch,
+	.app > header img.radboud
+		display none
+
+
 .app > header > nav,
 .app > header > img.hi-logo
 	float right
@@ -421,7 +453,10 @@ svg.loader,
 	margin 0
 	float none
 	display inline-block
-	
+
+
+
+
 
 @media screen and (min-width: 1200px)
 	article.entry .hi-textlayer > div

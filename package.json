@@ -34,7 +34,7 @@
     "flux": "~2.0.3",
     "hire-faceted-search-elab": "^2.2.1",
     "hire-tabs": "~1.0.3",
-    "hire-textlayer": "^1.4.0",
+    "hire-textlayer": "^1.5.0",
     "htmlparser2": "^3.8.3",
     "immutable": "~3.7.4",
     "react": "~0.13.3",

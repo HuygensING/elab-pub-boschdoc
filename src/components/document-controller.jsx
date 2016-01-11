@@ -4,6 +4,7 @@ import TextLayer from "hire-textlayer";
 import Metadata from "./metadata";
 import SourceInfo from "./source-info";
 import Paginator from "./paginator";
+import ThemesAnnotation from "./themes-annotation";
 import {getNextResultPage} from "../actions/view";
 import languageKeys from "../stores/i18n-keys";
 import appRouter from "../router";
@@ -87,6 +88,9 @@ class DocumentController extends React.Component {
 		let keys = languageKeys[lang];
 		return this.props.data.paralleltexts[keys[key]] ? (
 			<TextLayer
+				customComponentMap={{
+					Themes: ThemesAnnotation
+				}}
 				data={this.props.data.paralleltexts[keys[key]]}
 				label=""
 				onAnnotationClick={this.onAnnotationClick.bind(this)}

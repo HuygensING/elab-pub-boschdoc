@@ -12,10 +12,10 @@ class ThemesAnnotation extends React.Component {
 				id={this.props.n}
 				onMouseOut={this.props.onHover.bind(this, "")}
 				onMouseOver={this.props.onHover.bind(this, this.props.n)}>
-				<a href={`http://www.boschproject.org/painting/${linkId}`} target="_blank">
+				<a href={`http://boschproject.org/#!/artworks/${linkId}`} target="_blank">
 					{remainingText}
 				</a>
-				<a href={`http://www.boschproject.org/painting/${linkId}`} target="_blank">
+				<a href={`http://boschproject.org/#!/artworks/${linkId}`} target="_blank">
 					<ExternalLinkIcon />
 				</a>
 		</li>);

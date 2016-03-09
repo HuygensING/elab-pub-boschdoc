@@ -5,19 +5,25 @@ import ExternalLinkIcon from "./icons/external-link";
 class ThemesAnnotation extends React.Component {
 
 	render() {
-		console.log(Object.keys(this.props));
-		let linkId = this.props.text.replace(/^.*\[([0-9]+)\].*$/, "$1");
-		let remainingText = this.props.text.replace(/\[([0-9]+)\]/, "");
-		return (<li
-				id={this.props.n}
-				onMouseOut={this.props.onHover.bind(this, "")}
-				onMouseOver={this.props.onHover.bind(this, this.props.n)}>
-				<a href={`http://boschproject.org/#!/artworks/${linkId}`} target="_blank">
-					{remainingText}
-				</a>
-				<a href={`http://boschproject.org/#!/artworks/${linkId}`} target="_blank">
-					<ExternalLinkIcon />
-				</a>
+		const texts = this.props.text.split("|");
+		const { metadata } = this.props.type;
+
+		let links = Object.keys(metadata).indexOf("Boschdocproject Artworks Code") > -1 ?
+			metadata["Boschdocproject Artworks Code"].split("|").map((l) => l.trim()) : null;
+
+		return (<li id={this.props.n} onMouseOut={this.props.onHover.bind(this, "")} onMouseOver={this.props.onHover.bind(this, this.props.n)}>
+			{texts.map((t, i) => links && links[i] && links[i].length ?
+				(<span key={i}>
+					<a href={`http://boschproject.org/#!/artworks/${links[i]}`} target="_blank">
+						{t}
+					</a>
+					<a href={`http://boschproject.org/#!/artworks/${links[i]}`} target="_blank">
+						<ExternalLinkIcon />
+					</a>
+					{i < texts.length - 1 ? "|" : ""}
+				</span>) :
+				(<span key={i}>{t}{i < texts.length - 1 ? "|" : ""}</span>)
+			)}
 		</li>);
 	}
 }

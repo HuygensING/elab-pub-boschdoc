@@ -55,8 +55,6 @@ class DocumentController extends React.Component {
 			appStore.dispatch(getNextResultPage(pageState._next));
 		}
 
-		console.log("CURRENT PAGE INDEX", pageIndex);
-
 		this.setState({
 			nextPage: pageIndex > -1 ? ids[pageIndex + 1] || null : null,
 			prevPage: pageIndex > -1 ? ids[pageIndex - 1] || null : null

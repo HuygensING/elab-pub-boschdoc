@@ -1,8 +1,8 @@
 import api from "../api";
 
 export function setResults(results) {
-	results._next = results._next ? results._next.replace("draft//api", "draft/api") : null;
-	results._prev = results._prev ? results._prev.replace("draft//api", "draft/api") : null;
+	results._next = results._next ? results._next.replace(`${api.docroot}//api`, `${api.docroot}/api`) : null;
+	results._prev = results._prev ? results._prev.replace(`${api.docroot}//api`, `${api.docroot}/api`) : null;
 	results.ids = results.results.map((r) => { return r.id; });
 	return function(dispatch) {
 		dispatch({

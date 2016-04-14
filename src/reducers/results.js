@@ -1,3 +1,5 @@
+import api from '../api';
+
 let initialState = {
 	ids: [],
 	results: [],
@@ -10,12 +12,12 @@ let pushPages = function(state, data) {
 	if(state.loadedStartIndices.indexOf(data.start) < 0) {
 		state.ids = state.ids.concat(data.results.map(res => res.id));
 		if(data._next) {
-			state._next = data._next.replace("draft//api", "draft/api");
+			state._next = data._next.replace(`${api.docroot}//api`, `${api.docroot}/api`);
 		} else {
 			state._next = null;
 		}
 		if(data._prev) {
-			state._prev = data._prev.replace("draft//api", "draft/api");
+			state._prev = data._prev.replace(`${api.docroot}//api`, `${api.docroot}/api`);
 		} else {
 			state._prev = null;
 		}

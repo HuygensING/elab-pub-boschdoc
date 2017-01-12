@@ -63,7 +63,25 @@ class AppController extends React.Component {
 		if(this.cachedViews.search[lang] && (!this.state.controller.query || this.themeQuerySet)) { return this.cachedViews.search[lang]; }
 		if(this.state.controller.query) { this.themeQuerySet = true; }
 
-		let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
+		// let facetList = new LanguageFilter(lang, Object.keys(languageKeys[lang].facetTitles));
+		let facetList = [
+			"Locatie",
+			"Datum",
+			"Boekjaar",
+			"Historische instelling",
+			"Inventaris nummer",
+			"Document type",
+			"Folio nummer(s)",
+			"Pagina nummer(s)",
+			"Toegangsnummer",
+			"Titel",
+			"Auteur",
+			"Plaats van publicatie",
+			"Jaar van publicatie",
+			"Genoemde personen",
+			"Thema's"
+		];
+
 		this.cachedViews.search[lang] = (
 			<FacetedSearch
 				config={this.props.config}

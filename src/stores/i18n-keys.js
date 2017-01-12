@@ -93,12 +93,12 @@ export default {
 			Auteur: "Autor",
 			"Plaats van publicatie": "Lugar de publicación",
 			"Jaar van publicatie": "Año de publicación",
-			"Persons mentioned": "Persons mentioned",
-			"Genoemde personen": "Genoemde personen",
+			"Persons mentioned": "Personas Mencionadas",
+			"Genoemde personen": "Personas Mencionadas",
 			"Personas Mencionadas": "Personas Mencionadas",
-			Themes: "Themes",
+			Themes: "Temas",
 			Temas: "Temas",
-			"Thema's": "Thema's"
+			"Thema's": "Temas"
 		},
 		pagination: {
 			search: "Buscar",

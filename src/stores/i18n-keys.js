@@ -57,11 +57,11 @@ export default {
 			"Plaats van publicatie": "Place of publication",
 			"Jaar van publicatie": "Year of publication",
 			"Persons mentioned": "Persons mentioned",
-			"Genoemde personen": "Genoemde personen",
-			"Personas Mencionadas": "Personas Mencionadas",
+			"Genoemde personen": "Persons mentioned",
+			"Personas Mencionadas": "Persons mentioned",
 			Themes: "Themes",
-			Temas: "Temas",
-			"Thema's": "Thema's"
+			Temas: "Themes",
+			"Thema's": "Themes"
 		},
 		pagination: {
 			search: "Search",

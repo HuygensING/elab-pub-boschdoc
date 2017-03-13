@@ -1,23 +1,37 @@
 #!/bin/bash
 
+rm -rf build/
+mkdir -p build/js
+mkdir build/css
+
+if [ "$LOCAL_ENV" = "dev" ]; then
+	cp src/index.html build/index.html
+fi
+
+browserify=browserify
+if [ "$1" = "--watch" ]; then
+	STYLUS_WATCH="--watch"
+	browserify=watchify
+fi
+
 ./node_modules/.bin/stylus \
 	--use nib \
 	--compress \
-	--out build/development/css/main.css \
-	src/stylus/main.styl 
-
-
-
-INDEX_FILE=index.jsx
+	--out build/css/main.css \
+	$STYLUS_WATCH \
+	src/stylus/main.styl &
 
 # Build React JS
-node_modules/.bin/browserify src/$INDEX_FILE \
+node_modules/.bin/$browserify src/index.jsx \
 	--extension=.jsx \
-	--external classnames \
-	--external immutable \
-	--external react \
+	--require react \
+	--require classnames \
+	--require immutable \
 	--standalone BoschDoc \
 	--transform [ babelify --plugins object-assign ] \
-	--verbose > build/development/js/react-src.js
+	--outfile build/js/main.js \
+	--verbose &
 
-echo "`cat build/development/js/react-libs.js`;`cat build/development/js/react-src.js`" > build/development/js/main.js
+if [ "$1" = "--watch" ]; then
+	node scripts/server.js
+fi

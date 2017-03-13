@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "scripts/server.js",
-    "watch": "scripts/watch.sh",
-    "build": "scripts/build-libs.sh && scripts/build.sh"
+    "start": "scripts/build.sh --watch",
+    "build": "scripts/build.sh"
   },
   "author": "",
   "license": "BSD-2-Clause",

@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  gui:
+    image: huygensing/elab-pub-boschdoc:builbase
+    build: 
+      dockerfile: Dockerfile.buildbase
+      context: .
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes: 
+      - ./src/index.html:/app/build/index.html
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./scripts:/app/scripts

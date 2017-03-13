@@ -39,7 +39,7 @@ class AppController extends React.Component {
 
 	navigateLanguage(ev) {
 		if( appRouter.history.fragment === "") {
-			appRouter.navigate(ev.target.getAttribute("data-lang"));
+			appRouter.navigate(ev.target.getAttribute("data-lang") + "/search");
 		} else {
 			let path = appRouter.history.fragment.replace(/^[a-z]{2}/, ev.target.getAttribute("data-lang"));
 			appRouter.navigate(path);

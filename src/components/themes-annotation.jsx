@@ -14,10 +14,10 @@ class ThemesAnnotation extends React.Component {
 		return (<li id={this.props.n} onMouseOut={this.props.onHover.bind(this, "")} onMouseOver={this.props.onHover.bind(this, this.props.n)}>
 			{texts.map((t, i) => links && links[i] && links[i].length ?
 				(<span key={i}>
-					<a href={`http://boschproject.org/#!/artworks/${links[i]}`} target="_blank">
+					<a href={`http://boschproject.org/#/artworks/${links[i]}`} target="_blank">
 						{t}
 					</a>
-					<a href={`http://boschproject.org/#!/artworks/${links[i]}`} target="_blank">
+					<a href={`http://boschproject.org/#/artworks/${links[i]}`} target="_blank">
 						<ExternalLinkIcon />
 					</a>
 					{i < texts.length - 1 ? "|" : ""}

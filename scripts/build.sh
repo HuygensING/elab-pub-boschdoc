@@ -22,7 +22,7 @@ fi
 	--out build/css/main.css \
 	$STYLUS_WATCH \
 	src/stylus/main.styl &
-
+styluspid=$!
 # Build React JS
 ./node_modules/.bin/$browserify src/index.jsx \
 	--extension=.jsx \
@@ -33,7 +33,11 @@ fi
 	--transform [ babelify --plugins object-assign ] \
 	--outfile build/js/main.js \
 	--verbose &
+browserifypid=$!
 
 if [ "$1" = "--watch" ]; then
 	node scripts/server.js
+else
+	wait $styluspid
+	wait $browserifypid
 fi

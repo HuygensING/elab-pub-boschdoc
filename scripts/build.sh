@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 rm -rf build/
 mkdir -p build/js
 mkdir build/css
@@ -22,7 +24,7 @@ fi
 	src/stylus/main.styl &
 
 # Build React JS
-node_modules/.bin/$browserify src/index.jsx \
+./node_modules/.bin/$browserify src/index.jsx \
 	--extension=.jsx \
 	--require react \
 	--require classnames \

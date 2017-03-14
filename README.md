@@ -20,3 +20,8 @@ Push to master on this repo and check if the job `BoschDoc Frontend` on the huyg
 
 Push to production on this repo and run the job `BoschDoc Frontend` manually on the huygens ci. 
 Select production as the deployment type.
+
+## Where is it deployed
+
+Prod: http://boschdoc.huygens.knaw.nl/edition/
+test: http://boschdoc.huygens.knaw.nl/draft/
